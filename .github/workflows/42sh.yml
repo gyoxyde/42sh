@@ -60,7 +60,7 @@ jobs:
 
   push_to_mirror:
     needs: [check_program_compilation]
-    if: ${{ github.event_name == 'push' && github.repository != 'EpitechPromo2027/B-PSU-200-LIL-2-1-42sh-henri.gey-bechalier' }}
+    if: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/tags') }}
     name: "push_to_mirror"
     runs-on: ubuntu-latest
 
@@ -68,10 +68,12 @@ jobs:
       MIRROR_URL: git@github.com:EpitechPromo2027/B-PSU-200-LIL-2-1-42sh-henri.gey-bechalier.git
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: pixta-dev/repository-mirroring-action@v1
+      - name: Push repository
+        uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url: ${{ env.MIRROR_URL }}
           ssh_private_key: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
