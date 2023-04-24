@@ -54,6 +54,7 @@ jobs:
     - run: for FILE in $EXECUTABLES; do test -f $FILE && echo '$FILE exist' ; done
 
 
+
   push_to_mirror:
     needs: [check_program_compilation]
     if: ${{ github.event_name == 'push' }}
