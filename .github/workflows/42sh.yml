@@ -58,10 +58,9 @@ jobs:
       run: for FILE in $EXECUTABLES; do test -f $FILE && echo '$FILE exist' ; done
 
 
-
   push_to_mirror:
     needs: [check_program_compilation]
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && github.repository != 'EpitechPromo2027/B-PSU-200-LIL-2-1-42sh-henri.gey-bechalier' }}
     name: "push_to_mirror"
     runs-on: ubuntu-latest
 
