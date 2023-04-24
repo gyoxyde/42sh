@@ -45,13 +45,17 @@ jobs:
     container:
       image: epitechcontent/epitest-docker:latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - run: make
+    - name: Compile program
+      run: make
       timeout-minutes: 2
-    - run: make clean
-    - run: for FILE in $EXECUTABLES; do test -f $FILE && echo '$FILE exist' ; done
+    - name: Clean binary
+      run: make clean
+    - name: Check file existance
+      run: for FILE in $EXECUTABLES; do test -f $FILE && echo '$FILE exist' ; done
 
 
 
