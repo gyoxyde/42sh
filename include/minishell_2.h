@@ -25,15 +25,28 @@
 #ifndef mysh1_h
     #define mysh1_h
 
+typedef struct pipes_s {
+    int *fd;
+    int *prev_fd;
+    int old_stdin;
+    int old_stdout;
+    int i;
+    int status;
+} pipes_t;
+
 typedef struct shell_s {
+    pipes_t *p;
     char **env;
     char **array;
+    char **array_pipe;
     char *redirect_str;
     char *redirect_lstr;
     char *oldpwd;
     char *temp_oldpwd;
+    char *str;
     int index_path_found;
     int index_array;
+    int index_array_pipe;
     int recurs_nb;
     int exit_code;
     int temp_exit_code;
@@ -51,6 +64,8 @@ typedef struct shell_s {
     bool isRightDupDone;
     bool isLeftDupDone;
     ////////////////////////////
+    bool recurs_pipe;
+    bool hasBeenPiped;
 } shell_t;
 
 int shell_start(shell_t *shell);
@@ -123,8 +138,17 @@ int check_end_of_str_left_redi(char *str);
 int count_left_redi(char *str);
 void give_right_redi_two(char *str, int x, char *dest, int *i);
 
+char *clean_pipe(char *str);
+void give_pipe(char *str, int x, char *dest, int *i);
+int check_start_pipe_str(char *str, int x, char *dest, int *i);
+int count_pipe(char *str);
+void give_pipe_two(char *str, int x, char *dest, int *i);
+
 // Loop execve for semicolon
 bool fill_array(shell_t *shell, char **array);
+
+// Loop execve for pipe
+bool fill_array_pipe(shell_t *shell, char **array);
 
 bool check_redirection(shell_t *shell, char **array);
 void take_redirection_str(shell_t *shell, char **array, int i, char *str);
@@ -159,5 +183,20 @@ int get_avnb(shell_t *shell, char **array, int *number_av);
 int check_start_left_str(char *str, int x, char *dest, int *i);
 int parthing_for_redirections(shell_t *shell, char **array, int number_av);
 
+// pipe.c
+int create_pipe(shell_t *shell);
+int pipe_loop(char **array, shell_t *shell);
+int close_all(shell_t *shell);
+void pipe_fork(char **array, shell_t *shell);
+void pipe_parent(shell_t *shell);
+void pipe_child(shell_t *shell);
+
+void close_all_fd(shell_t *shell, char **array, int number_av);
+
+//clean_separator2.c
+char *clean_double_and(char *str);
+int count_double_and(char *str);
+void give_double_and(char *str, int x, char *dest, int *i);
+void give_double_and_two(char *str, int x, char *dest, int *i);
 
 #endif /* !mysh1_h */

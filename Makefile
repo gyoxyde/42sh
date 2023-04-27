@@ -19,13 +19,17 @@ SRC	=	src/main.c	\
 		src/built_in_fct/setenv_fct.c	\
 		src/built_in_fct/unsetenv_fct.c	\
 		src/punctuation/clean_separator.c	\
-		src/punctuation/semicolon.c	\
+		src/punctuation/fill_the_arrays.c	\
 		src/punctuation/clean_simpleleft_redi.c	\
 		src/punctuation/clean_simpleright_redi.c	\
 		src/punctuation/redirection.c	\
 		src/punctuation/check_redirection.c	\
 		src/punctuation/redirection_main.c	\
 		src/punctuation/give_redirection_str.c	\
+		src/punctuation/pipe.c	\
+		src/punctuation/clean_pipe.c	\
+		src/close_fd.c	\
+		src/punctuation/clean_separator2.c	\
 
 NAME	=	mysh
 

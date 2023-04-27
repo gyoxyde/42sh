@@ -32,12 +32,13 @@ char **path_array = my_str_to_word_array(my_getenv(shell->env, "PATH"), ':');
     if (isitdir_exec_cmd(array, shell, path) != 0) return 84;
     int status; pid_t pid = fork();
     if (pid == 0) {
+        pipe_child(shell);
         if (execve(path, array, shell->env) == -1) {
             my_eprintf("%s: Command not found.\n", array[0]); exit(84);
         }
     } else {
         if (pid > 0) {
-            wait(&status); temp_status = status;
+            pipe_parent(shell); wait(&status); temp_status = status;
             check_error_segfault(temp_status, shell);
         } else {
         perror("fork"); exit(84);

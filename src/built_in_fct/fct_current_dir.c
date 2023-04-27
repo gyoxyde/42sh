@@ -12,18 +12,18 @@ int fct_curr_dir(char **array, shell_t *shell)
         return 84;
     int status; pid_t pid = fork(); int temp_status;
     if (pid == 0) {
+        pipe_child(shell);
         if (execve(array[0], array, shell->env) == -1) {
-            check_errno(array);
-            exit(84);
+            check_errno(array); exit(84);
         }
     } else {
         if (pid > 0) {
+            pipe_parent(shell);
             wait(&status);
             temp_status = status;
             check_error_segfault(temp_status, shell);
         } else {
-        perror("fork");
-        exit(84);
+        perror("fork"); exit(84);
         }
     }
     return 0;
