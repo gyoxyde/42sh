@@ -1,5 +1,5 @@
 # 42sh - Unix SHELL
-This project is a Unix SHELL created as a part of the B2-Shell Programming course at 42. The SHELL is designed to handle various commands and perform the necessary operations, including parsing and executing commands, handling spaces and tabs, environment variables, errors and return values, redirections, pipes, builtins, separators, and more.
+This project is a Unix SHELL created as a part of the B2-Shell Programming course at EPITECH. The SHELL is designed to handle various commands and perform the necessary operations, including parsing and executing commands, handling spaces and tabs, environment variables, errors and return values, redirections, pipes, builtins, separators, and more.
 
 ## Installation
 
