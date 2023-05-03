@@ -31,7 +31,7 @@ SRC	=	src/main.c	\
 		src/close_fd.c	\
 		src/punctuation/clean_separator2.c	\
 
-NAME	=	mysh
+NAME	=	42sh
 
 OBJ	=	$(SRC:.c=.o)
 
