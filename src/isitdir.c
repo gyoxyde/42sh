@@ -4,7 +4,7 @@
 ** File description:
 ** isItDir.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int isitdir_exec_cmd(char **array, shell_t *shell, char *path)
 {

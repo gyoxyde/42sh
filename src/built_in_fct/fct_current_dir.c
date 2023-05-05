@@ -4,7 +4,7 @@
 ** File description:
 ** fct_current_dir.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int fct_curr_dir(char **array, shell_t *shell)
 {

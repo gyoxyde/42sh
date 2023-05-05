@@ -4,7 +4,7 @@
 ** File description:
 ** utils.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int count_av(char *str)
 {

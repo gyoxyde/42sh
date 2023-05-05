@@ -4,7 +4,7 @@
 ** File description:
 ** clean_separator.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int count_sepator(char *str)
 {

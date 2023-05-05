@@ -4,7 +4,7 @@
 ** File description:
 ** pipe.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 void pipe_child(shell_t *shell)
 {

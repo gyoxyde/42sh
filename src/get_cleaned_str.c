@@ -5,7 +5,7 @@
 ** init
 */
 
-#include "42sh.h"
+#include "shell.h"
 
 void get_cleaned_str(shell_t *shell)
 {

@@ -5,7 +5,7 @@
 ** init
 */
 
-#include "42sh.h"
+#include "shell.h"
 
 void init_all(shell_t *shell)
 {

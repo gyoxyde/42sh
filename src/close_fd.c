@@ -4,7 +4,7 @@
 ** File description:
 ** close_fd.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 void close_all_fd(shell_t *shell, char **array, int number_av)
 {

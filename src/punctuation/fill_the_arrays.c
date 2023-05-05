@@ -4,7 +4,7 @@
 ** File description:
 ** semicolon.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 bool fill_array_pipe(shell_t *shell, char **array)
 {

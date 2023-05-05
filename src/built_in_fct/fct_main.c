@@ -4,7 +4,7 @@
 ** File description:
 ** built_in_main.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 void built_in_function(char **array, shell_t *shell, int number_av)
 {

@@ -4,7 +4,7 @@
 ** File description:
 ** shell.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int shell_start(shell_t *shell)
 {

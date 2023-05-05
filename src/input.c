@@ -4,7 +4,7 @@
 ** File description:
 ** input.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 char *my_getstr(shell_t *shell)
 {

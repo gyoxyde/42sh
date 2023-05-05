@@ -4,7 +4,7 @@
 ** File description:
 ** clean_double_and.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int count_double_and(char *str)
 {

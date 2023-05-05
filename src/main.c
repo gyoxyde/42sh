@@ -4,7 +4,7 @@
 ** File description:
 ** main.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int main(int ac, char **const av, char** env)
 {

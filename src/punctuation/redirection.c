@@ -4,7 +4,7 @@
 ** File description:
 ** redirection.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int my_right_redirection(shell_t *shell, char ***array, int *fd)
 {

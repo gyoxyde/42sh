@@ -4,7 +4,7 @@
 ** File description:
 ** give_redirection_str.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 bool check_redirection(shell_t *shell, char **array)
 {

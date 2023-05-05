@@ -4,7 +4,7 @@
 ** File description:
 ** cd_fct.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 int cd_fct(shell_t *shell, char *filepath, int number_av)
 {

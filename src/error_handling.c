@@ -4,7 +4,7 @@
 ** File description:
 ** error_handling.c
 */
-#include "42sh.h"
+#include "shell.h"
 
 void ctrl_c_handler(int signum)
 {
