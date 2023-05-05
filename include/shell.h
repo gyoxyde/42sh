@@ -69,6 +69,31 @@ typedef struct shell_s {
     bool hasBeenPiped;
 } shell_t;
 
+enum cd_errors_type {
+    TOO_MANY,
+    NO_FILE,
+    NOT_DIR,
+    PERM_DENIED,
+    NO_HOME,
+    NO_HOME_VAR,
+    CHDIR,
+    NO_HOME2
+};
+
+enum builtin_type {
+    NOT_BUILT_IN,
+    CD,
+    SETENV,
+    UNSETENV,
+    ENV,
+    EXIT,
+    CD_NO_AV,
+    CD_DASH,
+    EXECUTE,
+    EXECUTE_CURR_DIR,
+    CD_WAVE
+};
+
 int shell_start(shell_t *shell);
 int shell_loop(shell_t *shell);
 char *my_getstr(shell_t *shell);

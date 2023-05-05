@@ -8,19 +8,19 @@
 
 void built_in_function(char **array, shell_t *shell, int number_av)
 {
-    int wasIt_Built_in_fct = check_built_in_fct(array[0], array, number_av);
-    if (wasIt_Built_in_fct != false) {
-        if (wasIt_Built_in_fct == 1) cd_fct(shell, array[1], number_av);
-        if (wasIt_Built_in_fct == 2) setenv_fct(shell, array, number_av);
-        if (wasIt_Built_in_fct == 3) unsetenv_fct(shell, array, number_av);
-        if (wasIt_Built_in_fct == 4) print_env(shell->env);
-        if (wasIt_Built_in_fct == 5) exit_fct(number_av, shell, array);
-        if (wasIt_Built_in_fct == 6) cd_no_av_fct(shell, number_av);
-        if (wasIt_Built_in_fct == 7) cd_dash_fct(number_av, shell);
-        if (wasIt_Built_in_fct == 8) fct_curr_dir(array, shell);
-        if (wasIt_Built_in_fct == 9) fct_curr_dir(array, shell);
-        if (wasIt_Built_in_fct == 10) cd_no_av_fct(shell, number_av);
-    }
+    int is_builtin = check_built_in_fct(array[0], array, number_av);
+    if (is_builtin == NOT_BUILT_IN)
+        return;
+    if (is_builtin == CD) cd_fct(shell, array[1], number_av);
+    if (is_builtin == SETENV) setenv_fct(shell, array, number_av);
+    if (is_builtin == UNSETENV) unsetenv_fct(shell, array, number_av);
+    if (is_builtin == ENV) print_env(shell->env);
+    if (is_builtin == EXIT) exit_fct(number_av, shell, array);
+    if (is_builtin == CD_NO_AV) cd_no_av_fct(shell, number_av);
+    if (is_builtin == CD_DASH) cd_dash_fct(number_av, shell);
+    if (is_builtin == EXECUTE) fct_curr_dir(array, shell);
+    if (is_builtin == EXECUTE_CURR_DIR) fct_curr_dir(array, shell);
+    if (is_builtin == CD_WAVE) cd_no_av_fct(shell, number_av);
 }
 
 int execute_cmd(char **array, shell_t *shell)
@@ -61,23 +61,21 @@ int check_path(shell_t *shell, char **array)
 int check_built_in_fct(char *str, char **array, int number_av)
 {
     if (number_av != 0) {
-        if (my_strcmp(str, "cd") == 0
-        && my_strcmp(array[1], "-") == 0) return 7;
-        if (my_strcmp(str, "cd") == 0
-        && my_strcmp(array[1], "~") == 0) return 10;
-        if (my_strcmp(str, "cd") == 0) return 1;
-        if (my_strcmp(str, "setenv") == 0) return 2;
-        if (my_strcmp(str, "unsetenv") == 0) return 3;
-        if (my_strncmp(str, "./", 2) == 0) return 8;
+        if (!my_strcmp(str, "cd") && !my_strcmp(array[1], "-")) return CD_DASH;
+        if (!my_strcmp(str, "cd") && !my_strcmp(array[1], "~")) return CD_WAVE;
+        if (!my_strcmp(str, "cd")) return CD;
+        if (!my_strcmp(str, "setenv")) return SETENV;
+        if (!my_strcmp(str, "unsetenv")) return UNSETENV;
+        if (!my_strncmp(str, "./", 2)) return EXECUTE;
     } else {
-        if (my_strcmp(str, "env") == 0) return 4;
-        if (my_strcmp(str, "setenv") == 0) return 4;
-        if (my_strcmp(str, "cd") == 0) return 6;
+        if (!my_strcmp(str, "env")) return ENV;
+        if (!my_strcmp(str, "setenv")) return ENV;
+        if (!my_strcmp(str, "cd")) return CD_NO_AV;
     }
-    if (my_strcmp(str, "exit") == 0) return 5;
-    if (my_strncmp(str, "./", 2) == 0) return 8;
-    if (check_curr_dir(str) == 1) return 9;
-    return 0;
+    if (!my_strcmp(str, "exit")) return EXIT;
+    if (!my_strncmp(str, "./", 2)) return EXECUTE;
+    if (check_curr_dir(str)) return EXECUTE_CURR_DIR;
+    return NOT_BUILT_IN;
 }
 
 void print_env(char **env)
