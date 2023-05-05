@@ -20,18 +20,20 @@ SRC	=	src/main.c	\
 		src/built_in_fct/exit_fct.c	\
 		src/built_in_fct/setenv_fct.c	\
 		src/built_in_fct/unsetenv_fct.c	\
-		src/punctuation/clean_separator.c	\
+		src/punctuation/clean/clean_separator.c	\
 		src/punctuation/fill_the_arrays.c	\
-		src/punctuation/clean_simpleleft_redi.c	\
-		src/punctuation/clean_simpleright_redi.c	\
-		src/punctuation/redirection.c	\
-		src/punctuation/check_redirection.c	\
-		src/punctuation/redirection_main.c	\
-		src/punctuation/give_redirection_str.c	\
+		src/punctuation/clean/clean_simpleleft_redi.c	\
+		src/punctuation/clean/clean_simpleright_redi.c	\
+		src/punctuation/redirection/redirection.c	\
+		src/punctuation/redirection/check_redirection.c	\
+		src/punctuation/redirection/redirection_main.c	\
+		src/punctuation/redirection/give_redirection_str.c	\
 		src/punctuation/pipe.c	\
-		src/punctuation/clean_pipe.c	\
+		src/punctuation/clean/clean_pipe.c	\
 		src/close_fd.c	\
-		src/punctuation/clean_separator2.c	\
+		src/punctuation/clean/clean_separator2.c	\
+		src/error_command.c	\
+		src/punctuation/redirection/utils_redirection.c	\
 
 NAME	=	42sh
 

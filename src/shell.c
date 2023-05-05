@@ -23,7 +23,7 @@ int shell_start(shell_t *shell)
     return 0;
 }
 
-int shell_loop(shell_t *shell)
+void shell_loop(shell_t *shell)
 {
     char **temp_array = my_str_to_word_array(shell->str, ' ');
     bool recurs = fill_array(shell, temp_array);
@@ -31,17 +31,20 @@ int shell_loop(shell_t *shell)
     int number_av = 0;
 
     init_loop(shell);
+    if (check_error_recursive(shell, temp_array) == true)
+        return;
     for (; shell->array[number_av] != NULL; number_av++);
     number_av = number_av - 1;
     if (check_redirection(shell, array))
         get_avnb(shell, array, &number_av);
     if (check_error_redirection(shell, array, &recurs))
-        return 84;
+        return;
     if (parthing_for_redirections(shell, array, number_av) == 84)
-        return 84;
+        return;
+    if (close_right_fd(shell) == 84)
+        return;
     if (recurs)
         shell_loop(shell);
-    return 0;
 }
 
 int parthing_for_redirections(shell_t *shell, char **array, int number_av)
@@ -51,14 +54,12 @@ int parthing_for_redirections(shell_t *shell, char **array, int number_av)
     if (isitleftredirection(array)) {
         if (my_left_redirection(shell, &array, &fd) == 84)
             return 84;
-        shell->isLeftDupDone = true;
-        return shell_redirection(shell, array, number_av);
+        return 0;
     }
     if (isitdoubleleftredirection(array)) {
-        if (my_doubleleft_redirection(shell, &array, &fd) == 84)
+        if (my_doubleleft_redirection(shell, &array) == 84)
             return 84;
-        shell->isLeftDupDone = true;
-        return shell_redirection(shell, array, number_av);
+        return 0;
     }
     if (shell->isLeftDupDone)
         return 1;
@@ -85,7 +86,10 @@ int shell_redirection(shell_t *shell, char **array, int number_av)
 
 void shell_do_fct(shell_t *shell, char **array, int number_av)
 {
-    pipe_loop(shell->array, shell);
+    if (pipe_loop(shell->array, shell) == -1) {
+        close_all_fd(shell, array, number_av);
+        return;
+    }
     array = shell->array_pipe;
     number_av = 0;
     for (; array[number_av] != NULL; number_av++);

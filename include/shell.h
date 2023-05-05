@@ -95,7 +95,7 @@ enum builtin_type {
 };
 
 int shell_start(shell_t *shell);
-int shell_loop(shell_t *shell);
+void shell_loop(shell_t *shell);
 char *my_getstr(shell_t *shell);
 int count_av(char *str);
 void signal_handler(void);
@@ -194,7 +194,7 @@ int my_right_redirection(shell_t *shell, char ***array, int *fd);
 int my_doubleright_redirection(shell_t *shell, char ***array, int *fd);
 int count_redirections(char **array, int i, int *nb_right, int *nb_left);
 int my_left_redirection(shell_t *shell, char ***array, int *fd);
-int my_doubleleft_redirection(shell_t *shell, char ***array, int *fd);
+int my_doubleleft_redirection(shell_t *shell, char ***array);
 
 int check_start_right_str(char *str, int x, char *dest, int *i);
 
@@ -228,5 +228,12 @@ void give_double_and_two(char *str, int x, char *dest, int *i);
 void init_all(shell_t *shell);
 void init_loop(shell_t *shell);
 void get_cleaned_str(shell_t *shell);
+
+//error_command.c
+bool check_error_recursive(shell_t *shell, char **array);
+int dup_redirection(char **args, shell_t *shell, int fd, int copy_fd);
+
+
+int close_right_fd(shell_t *shell);
 
 #endif /* !mysh1_h */

@@ -8,24 +8,40 @@
 
 void pipe_child(shell_t *shell)
 {
-    if (shell->p->prev_fd[0]) {
-        dup2(shell->p->prev_fd[0], STDIN_FILENO);
+    if (shell->recurs_pipe == false && shell->hasBeenPiped == false)
+        return;
+    if (shell->isLeftDupDone == false) {
+        if (shell->p->prev_fd[0])
+            dup2(shell->p->prev_fd[0], STDIN_FILENO);
+        if (shell->recurs_pipe == true)
+            dup2(shell->p->fd[1], STDOUT_FILENO);
+        close(shell->p->fd[0]);
+        close(shell->p->fd[1]);
+        close(shell->p->prev_fd[0]);
+        close(shell->p->prev_fd[1]);
+    } else {
+        if (shell->recurs_pipe == true)
+            dup2(shell->p->fd[1], STDOUT_FILENO);
+        close(shell->p->fd[0]);
     }
-    if (shell->recurs_pipe == true)
-        dup2(shell->p->fd[1], STDOUT_FILENO);
-    close(shell->p->fd[0]);
-    close(shell->p->fd[1]);
-    close(shell->p->prev_fd[0]);
-    close(shell->p->prev_fd[1]);
 }
 
 void pipe_parent(shell_t *shell)
 {
-    if (shell->p->prev_fd[0]) {
-        close(shell->p->prev_fd[0]);
+    if (shell->recurs_pipe == false && shell->hasBeenPiped == false)
+        return;
+    if (shell->isLeftDupDone == false) {
+        if (shell->p->prev_fd[0]) {
+            close(shell->p->prev_fd[0]);
+        }
+        if (shell->p->prev_fd[1]) {
+            close(shell->p->prev_fd[1]);
+        }
     }
-    if (shell->p->prev_fd[1]) {
-        close(shell->p->prev_fd[1]);
+    if (shell->isLeftDupDone == true) {
+        dup2(shell->p->fd[0], STDIN_FILENO);
+        close(shell->p->fd[1]);
+        close(shell->p->fd[0]);
     }
     shell->p->prev_fd[0] = shell->p->fd[0];
     shell->p->prev_fd[1] = shell->p->fd[1];
@@ -55,6 +71,11 @@ int close_all(shell_t *shell)
 int pipe_loop(char **array, shell_t *shell)
 {
     shell->recurs_pipe = false;
+    if (my_strcmp(array[0], "|") == 0) {
+        my_eprintf("Invalid null command.\n");
+        shell->temp_exit_code = 1;
+        return -1;
+    }
     if (fill_array_pipe(shell, array) == true) {
         if (pipe(shell->p->fd) == -1) {
         perror("pipe failed");
