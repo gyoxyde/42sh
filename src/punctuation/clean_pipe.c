@@ -77,9 +77,7 @@ int check_start_pipe_str(char *str, int x, char *dest, int *i)
     int space = 0;
     if (x == 0 && str[0] == '|' && str[1] != '\0' && str[1] != ' '
         && str[1] != '|') {
-        dest[(*i)] = str[x];
-        (*i)++; dest[(*i)] = ' ';
-        (*i)++; space++;
+        dest[(*i)] = str[x]; (*i)++; dest[(*i)] = ' '; (*i)++; space++;
         } if (x == 0 && str[0] == '|' && str[1] == ' ') {
             dest[(*i)] = str[x]; (*i)++; space ++;
         } if (x == 0 && str[0] == '|' && str[1] == '\0') {
