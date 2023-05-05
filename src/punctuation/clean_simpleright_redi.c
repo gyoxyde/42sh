@@ -40,14 +40,14 @@ void give_right_redi(char *str, int x, char *dest, int *i)
         if (str[x - 1] == ' ' && str[x + 1] == '>') {
             dest[(*i)] = '>'; (*i)++; dest[(*i)] = '>'; (*i)++; return;
         } if (str[x - 1] != ' ' && str[x - 1] != '>' &&
-        str[x + 1] == '>') {
+            str[x + 1] == '>') {
             dest[(*i)] = ' '; (*i)++; dest[(*i)] = '>'; (*i)++;
             dest[(*i)] = '>'; (*i)++; return;
         } if (str[x - 1] != ' ' && str[x - 1] != '>' && str[x + 1] == ' ') {
             dest[(*i)] = ' '; (*i)++; dest[(*i)] = '>'; (*i)++;
             return;
         } if (str[x - 1] != ' ' && str[x - 1] != '>' && str[x + 1] != ' '
-        && str[x + 1] != '>') {
+            && str[x + 1] != '>') {
             dest[(*i)] = ' '; (*i)++; dest[(*i)] = '>'; (*i)++;
             dest[(*i)] = ' '; (*i)++; return;
         }
@@ -69,29 +69,27 @@ void give_right_redi_two(char *str, int x, char *dest, int *i)
         return;
     }
     dest[(*i)] = str[x]; (*i)++;
-    return;
 }
 
 int check_start_right_str(char *str, int x, char *dest, int *i)
 {
     int space = 0;
-if (x == 0 && str[0] == '>' && str[1] != '\0' && str[1] != ' '
+    if (x == 0 && str[0] == '>' && str[1] != '\0' && str[1] != ' '
         && str[1] != '>') {
-            dest[(*i)] = str[x]; (*i)++; dest[(*i)] = ' '; (*i)++; space++;
-        } if (x == 0 && str[0] == '>' && str[1] == ' ') {
-            dest[(*i)] = str[x]; (*i)++; space ++;
-        } if (x == 0 && str[0] == '>' && str[1] == '\0') {
-            dest[(*i)] = str[x]; (*i)++; space ++;
-        }
-        if (x == 0 && str[0] == '>' && str[1] == '>' && str[2] != '\0'
-    && str[2] != ' ' && str[2] != '>') {
-            dest[(*i)] = str[x]; (*i)++; dest[(*i)] = str[x]; (*i)++;
-            space++;
-        } if (x == 0 && str[0] == '>' && str[1] == '>' && str[2] == ' ') {
-            dest[(*i)] = str[x]; (*i)++; dest[(*i)] = str[x]; (*i)++; space ++;
-        } if (x == 0 && str[0] == '>' && str[1] == '>' && str[2] == '\0') {
-            dest[(*i)] = str[x]; (*i)++; dest[(*i)] = str[x]; (*i)++; space ++;
-        }
-    if (space != 0) return 1;
-    return 0;
+        dest[(*i)] = str[x]; (*i)++; dest[(*i)] = ' '; (*i)++; space++;
+    } if (x == 0 && str[0] == '>' && str[1] == ' ') {
+        dest[(*i)] = str[x]; (*i)++; space ++;
+    } if (x == 0 && str[0] == '>' && str[1] == '\0') {
+        dest[(*i)] = str[x]; (*i)++; space ++;
+    }
+    if (x == 0 && str[0] == '>' && str[1] == '>' && str[2] != '\0'
+        && str[2] != ' ' && str[2] != '>') {
+        dest[(*i)] = str[x]; (*i)++; dest[(*i)] = str[x]; (*i)++;
+        space++;
+    } if (x == 0 && str[0] == '>' && str[1] == '>' && str[2] == ' ') {
+        dest[(*i)] = str[x]; (*i)++; dest[(*i)] = str[x]; (*i)++; space ++;
+    } if (x == 0 && str[0] == '>' && str[1] == '>' && str[2] == '\0') {
+        dest[(*i)] = str[x]; (*i)++; dest[(*i)] = str[x]; (*i)++; space ++;
+    }
+    return (space != 0);
 }

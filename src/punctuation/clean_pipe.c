@@ -75,16 +75,17 @@ void give_pipe_two(char *str, int x, char *dest, int *i)
 int check_start_pipe_str(char *str, int x, char *dest, int *i)
 {
     int space = 0;
-if (x == 0 && str[0] == '|' && str[1] != '\0' && str[1] != ' '
-        && str[1] != '|') {
-            dest[(*i)] = str[x]; (*i)++; dest[(*i)] = ' '; (*i)++; space++;
+    if (x == 0 && str[0] == '|' && str[1] != '\0' && str[1] != ' ' && str[1] != '|') {
+        dest[(*i)] = str[x];
+        (*i)++; dest[(*i)] = ' ';
+        (*i)++; space++;
         } if (x == 0 && str[0] == '|' && str[1] == ' ') {
             dest[(*i)] = str[x]; (*i)++; space ++;
         } if (x == 0 && str[0] == '|' && str[1] == '\0') {
             dest[(*i)] = str[x]; (*i)++; space ++;
         }
         if (x == 0 && str[0] == '|' && str[1] == '|' && str[2] != '\0'
-    && str[2] != ' ' && str[2] != '|') {
+            && str[2] != ' ' && str[2] != '|') {
             dest[(*i)] = str[x]; (*i)++; dest[(*i)] = str[x]; (*i)++;
             space++;
         } if (x == 0 && str[0] == '|' && str[1] == '|' && str[2] == ' ') {
@@ -92,6 +93,5 @@ if (x == 0 && str[0] == '|' && str[1] != '\0' && str[1] != ' '
         } if (x == 0 && str[0] == '|' && str[1] == '|' && str[2] == '\0') {
             dest[(*i)] = str[x]; (*i)++; dest[(*i)] = str[x]; (*i)++; space ++;
         }
-    if (space != 0) return 1;
-    return 0;
+    return (space != 0);
 }
