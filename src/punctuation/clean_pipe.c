@@ -4,7 +4,7 @@
 ** File description:
 ** clean_pipe.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 int count_pipe(char *str)
 {

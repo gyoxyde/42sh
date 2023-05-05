@@ -4,7 +4,7 @@
 ** File description:
 ** utils.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 int count_av(char *str)
 {

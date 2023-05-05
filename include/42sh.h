@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** minishell
 ** File description:
-** minishell_2
+** 42sh
 */
 #include "my.h"
 #include "unistd.h"
@@ -37,6 +37,7 @@ typedef struct pipes_s {
 typedef struct shell_s {
     pipes_t *p;
     char **env;
+    char **local;
     char **array;
     char **array_pipe;
     char *redirect_str;
@@ -69,7 +70,7 @@ typedef struct shell_s {
 } shell_t;
 
 int shell_start(shell_t *shell);
-int shell_loop(shell_t *shell, char *str);
+int shell_loop(shell_t *shell);
 char *my_getstr(shell_t *shell);
 int count_av(char *str);
 void signal_handler(void);
@@ -160,7 +161,7 @@ bool isitleftredirection(char **array);
 bool isitdoubleleftredirection(char **array);
 bool check_error_redirection(shell_t *shell, char **array, bool *recurs);
 
-void shell_redirection(shell_t *shell,
+int shell_redirection(shell_t *shell,
 char **array, int number_av);
 void shell_do_fct(shell_t *shell, char **array, int number_av);
 
@@ -198,5 +199,9 @@ char *clean_double_and(char *str);
 int count_double_and(char *str);
 void give_double_and(char *str, int x, char *dest, int *i);
 void give_double_and_two(char *str, int x, char *dest, int *i);
+
+void init_all(shell_t *shell);
+void init_loop(shell_t *shell);
+void get_cleaned_str(shell_t *shell);
 
 #endif /* !mysh1_h */

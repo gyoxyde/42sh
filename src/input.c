@@ -4,7 +4,7 @@
 ** File description:
 ** input.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 char *my_getstr(shell_t *shell)
 {

@@ -5,7 +5,7 @@
 ** setenv.c
 */
 
-#include "minishell_2.h"
+#include "42sh.h"
 
 int setenv_fct(shell_t *shell, char **array, int number_av)
 {

@@ -4,7 +4,7 @@
 ** File description:
 ** exit_fct.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 int exit_fct(int number_av, shell_t *shell, char **array)
 {

@@ -4,7 +4,7 @@
 ** File description:
 ** path_handler.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 int check_if_fct_is_here(char **path_array, char **array, int index)
 {

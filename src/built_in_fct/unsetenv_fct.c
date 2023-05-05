@@ -4,7 +4,7 @@
 ** File description:
 ** unsetenv_fct.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 int unsetenv_fct(shell_t *shell, char **array, int number_av)
 {

@@ -4,7 +4,7 @@
 ** File description:
 ** main.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 int main(int ac, char **const av, char** env)
 {
@@ -19,3 +19,19 @@ int main(int ac, char **const av, char** env)
     shell_start(shell);
     return 0;
 }
+
+/*
+_ (old command)
+path
+cwd (pwd)
+user
+home
+shlvl
+version?
+owd (old pwd)
+xterm (term)
+shell (pwd)
+(dans l'ordre alphabetique)
+(set a=z)
+(5espaces entre var et val)
+*/

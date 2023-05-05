@@ -10,8 +10,10 @@ SRC	=	src/main.c	\
 		src/input.c	\
 		src/error_handling.c	\
 		src/path_handler.c	\
+		src/get_cleaned_str.c \
 		src/utils.c	\
 		src/isitdir.c	\
+		src/init.c \
 		src/built_in_fct/fct_main.c	\
 		src/built_in_fct/fct_current_dir.c	\
 		src/built_in_fct/cd_fct.c	\
@@ -65,5 +67,11 @@ fclean:     clean
 	rm -f $(NAME)
 
 re: fclean all
+
+branch:
+	@read -p "Enter the branch name: " branch_name && \
+	git checkout -b $${branch_name} && \
+	git push --set-upstream origin $${branch_name}
+	@echo -e "\e[92mBranch created\e[39m"
 
 .PHONY: all fclean clean re

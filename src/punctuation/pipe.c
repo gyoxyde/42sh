@@ -4,7 +4,7 @@
 ** File description:
 ** pipe.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 void pipe_child(shell_t *shell)
 {

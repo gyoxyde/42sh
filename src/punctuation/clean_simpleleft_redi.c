@@ -4,7 +4,7 @@
 ** File description:
 ** clean_simpleleft_redi.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 int count_left_redi(char *str)
 {

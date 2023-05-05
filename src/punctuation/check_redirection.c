@@ -4,7 +4,7 @@
 ** File description:
 ** check_redirection.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 bool isitrightredirection(char **array)
 {

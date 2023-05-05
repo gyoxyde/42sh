@@ -4,7 +4,7 @@
 ** File description:
 ** redirection_main.c
 */
-#include "minishell_2.h"
+#include "42sh.h"
 
 bool check_error_redirection(shell_t *shell, char **array, bool *recurs)
 {
