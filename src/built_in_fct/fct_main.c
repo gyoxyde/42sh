@@ -25,23 +25,22 @@ void built_in_function(char **array, shell_t *shell, int number_av)
 
 int execute_cmd(char **array, shell_t *shell)
 {
-    if (check_path(shell, array) != 0) return 84;
-char **path_array = my_str_to_word_array(my_getenv(shell->env, "PATH"), ':');
-    char *temp_str = my_strcat(path_array[shell->index_path_found], "/");
-    char *path = my_strcat(temp_str, array[0]); int temp_status;
-    if (isitdir_exec_cmd(array, shell, path) != 0) return 84;
-    int status; pid_t pid = fork();
+    char *path = NULL;
+    int status = 0;
+    int temp_status = 0;
+    pid_t pid;
+
+    if (check_exec_cmd(array, shell, &path) == 84)
+        return 84;
+    pid = fork();
     if (pid == 0) {
-        pipe_child(shell);
-        if (execve(path, array, shell->env) == -1) {
-            my_eprintf("%s: Command not found.\n", array[0]); exit(84);
-        }
+        exec_child_process(shell, array, path);
     } else {
         if (pid > 0) {
-            pipe_parent(shell); wait(&status); temp_status = status;
-            check_error_segfault(temp_status, shell);
+            exec_parent_process(shell, status, temp_status);
         } else {
-        perror("fork"); exit(84);
+        perror("fork");
+        exit(84);
         }
     }
     return 0;

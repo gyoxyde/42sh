@@ -8,22 +8,21 @@
 
 int fct_curr_dir(char **array, shell_t *shell)
 {
+    int status = 0;
+    int temp_status = 0;
+    pid_t pid;
+
     if (isitdir_exec_cmd(array, shell, array[0]) != 0)
         return 84;
-    int status; pid_t pid = fork(); int temp_status;
+    pid = fork();
     if (pid == 0) {
-        pipe_child(shell);
-        if (execve(array[0], array, shell->env) == -1) {
-            check_errno(array); exit(84);
-        }
+        exec_child_process(shell, array, array[0]);
     } else {
         if (pid > 0) {
-            pipe_parent(shell);
-            wait(&status);
-            temp_status = status;
-            check_error_segfault(temp_status, shell);
+            exec_parent_process(shell, status, temp_status);
         } else {
-        perror("fork"); exit(84);
+        perror("fork");
+        exit(84);
         }
     }
     return 0;
@@ -44,6 +43,7 @@ int check_segfault(int status)
 int check_curr_dir(char *str)
 {
     bool isThereBackslash = false;
+
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] == '/') {
             isThereBackslash = true;

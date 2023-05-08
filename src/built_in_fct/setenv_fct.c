@@ -32,6 +32,7 @@ int setenv_fct(shell_t *shell, char **array, int number_av)
 int change_setenv(shell_t *shell, char *key, char *value)
 {
     char *temp_str;
+
     for (int i = 0; shell->env[i]; i++) {
         if (my_strncmp(shell->env[i], key, my_strlen(key)) == 0
         && value == NULL) {
@@ -58,7 +59,8 @@ int check_key_str(char *key, shell_t *shell)
     for (int i = 1; key[i] != '\0'; i++) {
         if ((key[i] < 'a' || key[i] > 'z') && (key[i] < 'A' || key[i] > 'Z')
         && (key[i] < '0' || key[i] > '9') && (key[i] != '_')) {
-my_eprintf("setenv: Variable name must contain alphanumeric characters.\n");
+            my_eprintf("setenv: Variable name must contain ");
+            my_eprintf("alphanumeric characters.\n");
             shell->temp_exit_code = 1;
             return 42;
         }

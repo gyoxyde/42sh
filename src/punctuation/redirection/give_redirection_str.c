@@ -6,26 +6,43 @@
 */
 #include "shell.h"
 
+void check_redirection_two(shell_t *shell, char **array, bool *itIsThere)
+{
+    if (isitleftredirection(array) == true) {
+        for (int i = 0; array[i]; i++) {
+            take_redirection_lstr(shell, array, i, "<");
+            (*itIsThere) = true;
+        }
+    }
+    if (isitdoubleleftredirection(array) == true) {
+        for (int i = 0; array[i]; i++) {
+            take_redirection_lstr(shell, array, i, "<<");
+            (*itIsThere) = true;
+        }
+    }
+}
+
 bool check_redirection(shell_t *shell, char **array)
 {
-shell->redirect_str = NULL; shell->redirect_lstr = NULL; bool itIsThere = false;
+    shell->redirect_str = NULL;
+    shell->redirect_lstr = NULL;
+    bool itIsThere = false;
+
     if (isitrightredirection(array) == true) {
         for (int i = 0; array[i]; i++) {
-            take_redirection_str(shell, array, i, ">"); itIsThere = true;
+            take_redirection_str(shell, array, i, ">");
+            itIsThere = true;
         }
-    } if (isitdoublerightredirection(array) == true) {
+    }
+    if (isitdoublerightredirection(array) == true) {
         for (int i = 0; array[i]; i++) {
-            take_redirection_str(shell, array, i, ">>"); itIsThere = true;
+            take_redirection_str(shell, array, i, ">>");
+            itIsThere = true;
         }
-    } if (isitleftredirection(array) == true) {
-        for (int i = 0; array[i]; i++) {
-            take_redirection_lstr(shell, array, i, "<"); itIsThere = true;
-        }
-    } if (isitdoubleleftredirection(array) == true) {
-        for (int i = 0; array[i]; i++) {
-            take_redirection_lstr(shell, array, i, "<<"); itIsThere = true;
-        }
-    } if (itIsThere == true) return true;
+    }
+    check_redirection_two(shell, array, &itIsThere);
+    if (itIsThere)
+        return true;
     return false;
 }
 

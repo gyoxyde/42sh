@@ -10,6 +10,7 @@ char *my_getstr(shell_t *shell)
 {
     char *input_str = NULL;
     size_t size = 0;
+
     if (getline(&input_str, &size, stdin) == -1) {
         my_eprintf("exit\n");
         exit(shell->exit_code);

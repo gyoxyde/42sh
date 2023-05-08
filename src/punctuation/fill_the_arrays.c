@@ -9,6 +9,7 @@
 bool fill_array_pipe(shell_t *shell, char **array)
 {
     int i = 0;
+
     shell->array_pipe = malloc(sizeof(char *) * (shell->number_av + 1));
     for (; array[shell->index_array_pipe] != NULL; i++,
     shell->index_array_pipe++) {
@@ -42,19 +43,3 @@ bool fill_array(shell_t *shell, char **array)
     shell->array[i] = NULL;
     return false;
 }
-
-// void create_array_for_semicolon(shell_t *shell, char **array, int number_av)
-// {
-//     shell->array = malloc(sizeof(char *) * (number_av + 1));
-//     for (int i = 0; array[i]!= NULL; i++) {
-//         if (array[i][0] == ';')
-//             for (int a = 0; array[i][a] == ';'; a++);
-//         for (int j = 0; array[shell->index_array][j] != '\0'; j++) {
-//             for (int k = 0; array[shell->index_array][j + k] == ';') {
-//                 shell->index_array++;
-//             return true;
-//             }
-//         }
-//     }
-//     return false;
-// }

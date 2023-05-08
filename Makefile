@@ -15,6 +15,7 @@ SRC	=	src/main.c	\
 		src/isitdir.c	\
 		src/init.c \
 		src/built_in_fct/fct_main.c	\
+		src/built_in_fct/utils_fct.c	\
 		src/built_in_fct/fct_current_dir.c	\
 		src/built_in_fct/cd_fct.c	\
 		src/built_in_fct/exit_fct.c	\
@@ -34,6 +35,7 @@ SRC	=	src/main.c	\
 		src/punctuation/clean/clean_separator2.c	\
 		src/error_command.c	\
 		src/punctuation/redirection/utils_redirection.c	\
+		src/punctuation/redirection/ambiguous.c	\
 
 NAME	=	42sh
 

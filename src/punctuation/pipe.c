@@ -50,12 +50,12 @@ void pipe_parent(shell_t *shell)
 
 int close_all(shell_t *shell)
 {
+    int wstatus;
     close(shell->p->prev_fd[0]);
     close(shell->p->prev_fd[1]);
     close(shell->p->fd[0]);
     close(shell->p->fd[1]);
 
-    int wstatus;
     while ((waitpid(-1, &wstatus, 0)) > 0) {
         if (WIFEXITED(wstatus)) {
             shell->temp_exit_code = WEXITSTATUS(wstatus);
@@ -71,6 +71,7 @@ int close_all(shell_t *shell)
 int pipe_loop(char **array, shell_t *shell)
 {
     shell->recurs_pipe = false;
+
     if (my_strcmp(array[0], "|") == 0) {
         my_eprintf("Invalid null command.\n");
         shell->temp_exit_code = 1;

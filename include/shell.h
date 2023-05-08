@@ -69,6 +69,14 @@ typedef struct shell_s {
     bool hasBeenPiped;
 } shell_t;
 
+enum redirections_errors_type {
+    NO_NAME,
+    INVALID_CMD,
+    NO_DUP2,
+    AMBIGUOUS_INPUT,
+    AMBIGUOUS_OUTPUT
+};
+
 enum cd_errors_type {
     TOO_MANY,
     NO_FILE,
@@ -186,13 +194,12 @@ bool isitleftredirection(char **array);
 bool isitdoubleleftredirection(char **array);
 bool check_error_redirection(shell_t *shell, char **array, bool *recurs);
 
-int shell_redirection(shell_t *shell,
-char **array, int number_av);
+int shell_redirection(shell_t *shell, char **array, int number_av);
 void shell_do_fct(shell_t *shell, char **array, int number_av);
 
 int my_right_redirection(shell_t *shell, char ***array, int *fd);
 int my_doubleright_redirection(shell_t *shell, char ***array, int *fd);
-int count_redirections(char **array, int i, int *nb_right, int *nb_left);
+int count_redirections(shell_t *shell, char **array, bool *recurs);
 int my_left_redirection(shell_t *shell, char ***array, int *fd);
 int my_doubleleft_redirection(shell_t *shell, char ***array);
 
@@ -233,7 +240,19 @@ void get_cleaned_str(shell_t *shell);
 bool check_error_recursive(shell_t *shell, char **array);
 int dup_redirection(char **args, shell_t *shell, int fd, int copy_fd);
 
+int redi_error_message(int type, shell_t *shell, char *str);
 
 int close_right_fd(shell_t *shell);
+int write_double_left_pipe(shell_t *shell, int *pipefd, char *file);
+char *get_heredoc(char *end_of_file);
+
+//ambiguous.c
+int check_for_ambiguous(shell_t *shell, char **array, bool *recurs);
+int ambiguous_error(shell_t *shell, int type, bool *recurs);
+
+void exec_parent_process(shell_t *shell, int status, int temp_status);
+void exec_child_process(shell_t *shell, char **array, char *path);
+
+int check_exec_cmd(char **array, shell_t *shell, char **path);
 
 #endif /* !mysh1_h */
