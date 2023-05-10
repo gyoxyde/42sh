@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <termios.h>
 
 #ifndef mysh1_h
     #define mysh1_h
