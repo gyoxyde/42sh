@@ -37,9 +37,9 @@ The SHELL supports various commands and operations, including:
 * Scripting
 ## Authors
 
-- [@César Zarcone](https://github.com/gyoxyde)
-- [@Henri GEY BECHALIER](https://github.com/Hyunsuke)
 - [@Léo DUMONT](https://github.com/leodumont444)
+- [@Henri GEY BECHALIER](https://github.com/Hyunsuke)
+- [@César Zarcone](https://github.com/gyoxyde)
 - [@VictorLAZOORE](https://github.com/VictorLAZOORE)
 - [@LeoLEPRETRE](https://github.com/LeoLEPRETRE)
 
