@@ -29,7 +29,7 @@ void line_comp(shell_t *shell, char *line, int *i)
 
 void load_history(shell_t *shell)
 {
-    FILE *file = fopen("history.txt", "r");
+    FILE *file = fopen(".history", "r");
     if (file == NULL)
         return;
     char *line = malloc(sizeof(char) * 1024);

@@ -23,7 +23,7 @@ void history_add(shell_t *shell)
         shell->i->history_length--;
     }
     shell->i->history[shell->i->history_length++] = strdup(shell->i->input_str);
-    FILE *file = fopen("history.txt", "a+");
+    FILE *file = fopen(".history", "a+");
     if (file == NULL) {
         return;
     }
