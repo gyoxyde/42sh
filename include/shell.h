@@ -7,6 +7,7 @@
 
 #ifndef mysh1_h
     #define mysh1_h
+    #define HISTORY_SIZE 100
     #include "my.h"
     #include "unistd.h"
     #include <stdio.h>
@@ -49,6 +50,10 @@ typedef struct input_s {
     char *input_str;
     size_t size;
     int current_char;
+    /////HISTORY
+    char **history;
+    int history_index;
+    int history_length;
 } input_t;
 
 typedef struct shell_s {
@@ -138,6 +143,7 @@ enum set_errors_enum {
 int shell_start(shell_t *shell);
 void shell_loop(shell_t *shell, char **temp_array);
 char *my_getstr(shell_t *shell);
+char *intty_or_not(shell_t *shell);
 int count_av(char *str);
 void signal_handler(void);
 void ctrl_c_handler(int signum);
@@ -312,6 +318,9 @@ void init_local(shell_t *shell);
 
 //
 
+//input/is_input_tty.c
+char *intty_or_not(shell_t *shell);
+
 //input/backspace_input.c
 void backspace(shell_t *shell);
 
@@ -320,6 +329,12 @@ void arrow(shell_t *shell);
 
 //input/error_input.c
 void error_input(shell_t *shell, char c);
+
+//input/history/
+void load_history(shell_t *shell);
+void history_up(shell_t *shell);
+void history_down(shell_t *shell);
+void history_add(shell_t *shell);
 
 //file_info.c
 int file_info(char *pathfile, shell_t *shell);
