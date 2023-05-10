@@ -52,6 +52,11 @@ SRC	=	src/main.c	\
 		src/built_in_fct/fct_main_bis.c \
 		src/built_in_fct/find_alias.c \
 		src/new_array.c \
+		src/input/history/history.c	\
+		src/input/history/load_history.c \
+		src/input/history/history_up.c \
+		src/input/history/history_down.c \
+		src/input/is_input_tty.c \
 
 NAME	=	42sh
 

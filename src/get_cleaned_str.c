@@ -10,7 +10,7 @@
 void get_cleaned_str(shell_t *shell)
 {
     char *str;
-    str = my_getstr(shell);
+    str = intty_or_not(shell);
     str = clean_str(str);
     str = clean_separator(str);
     str = clean_double_and(str);
