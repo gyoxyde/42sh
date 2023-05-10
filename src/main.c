@@ -13,6 +13,7 @@ int main(int ac, char **const av, char** env)
     if (shell == NULL)
         exit(84);
     shell->p = malloc(sizeof(pipes_t));
+    shell->i = malloc(sizeof(input_t));
     if (ac != 1)
         exit(84);
     shell->env = env;
