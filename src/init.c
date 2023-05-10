@@ -26,4 +26,44 @@ void init_loop(shell_t *shell)
     shell->isRightDupDone = false;
     shell->recurs_pipe = false;
     shell->hasBeenPiped = false;
+    shell->islocal = false;
 }
+
+static void init_local_bis(shell_t *shell, int *i)
+{
+    if (getlogin()) asprintf(&shell->local[*i++], "user=%s", getlogin());
+    char *home = my_getenv(shell->env, "HOME");
+    if (home) asprintf(&shell->local[*i++], "home=%s", home);
+    asprintf(&shell->local[*i++], "shlvl=1");
+    asprintf(&shell->local[*i++], "version=42sh");
+    char *oldpwd = my_getenv(shell->env, "OLDPWD");
+    if
+        (oldpwd) asprintf(&shell->local[*i++], "owd=%s", oldpwd);
+    else
+        asprintf(&shell->local[*i++], "owd=");
+    char *term = my_getenv(shell->env, "TERM");
+    if (term) asprintf(&shell->local[*i++], "term=%s", term);
+    char *cwd = getcwd(NULL, 0);
+    if (cwd) asprintf(&shell->local[*i++], "shell=%s", cwd);
+}
+
+void init_local(shell_t *shell)
+{
+    int i = 0;
+    shell->local = malloc(sizeof(char *) * 128);
+    asprintf(&shell->local[i++], "_=");
+    char *path = my_getenv(shell->env, "PATH");
+    if (path)
+        asprintf(&shell->local[i++], "path=(%s)", path);
+    else
+        asprintf(&shell->local[i++], "path=(/usr/bin:/bin)");
+    char *cwd = getcwd(NULL, 0);
+    if (cwd) asprintf(&shell->local[i++], "cwd=%s", cwd);
+    init_local_bis(shell, &i);
+    shell->local[i] = NULL;
+}
+
+/*
+(dans l'ordre alphabetique)
+(set a=z)
+*/

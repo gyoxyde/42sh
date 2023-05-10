@@ -11,16 +11,17 @@ void built_in_function(char **array, shell_t *shell, int number_av)
     int is_builtin = check_built_in_fct(array[0], array, number_av);
     if (is_builtin == NOT_BUILT_IN)
         return;
-    if (is_builtin == CD) cd_fct(shell, array[1], number_av);
-    if (is_builtin == SETENV) setenv_fct(shell, array, number_av);
-    if (is_builtin == UNSETENV) unsetenv_fct(shell, array, number_av);
-    if (is_builtin == ENV) print_env(shell->env);
-    if (is_builtin == EXIT) exit_fct(number_av, shell, array);
-    if (is_builtin == CD_NO_AV) cd_no_av_fct(shell, number_av);
-    if (is_builtin == CD_DASH) cd_dash_fct(number_av, shell);
-    if (is_builtin == EXECUTE) fct_curr_dir(array, shell);
+    if (is_builtin == CD)               cd_fct(shell, array[1], number_av);
+    if (is_builtin == SETENV)           setenv_fct(shell, array, number_av);
+    if (is_builtin == UNSETENV)         unsetenv_fct(shell, array, number_av);
+    if (is_builtin == ENV)              print_env(shell->env);
+    if (is_builtin == EXIT)             exit_fct(number_av, shell, array);
+    if (is_builtin == CD_NO_AV)         cd_no_av_fct(shell, number_av);
+    if (is_builtin == CD_DASH)          cd_dash_fct(number_av, shell);
+    if (is_builtin == EXECUTE)          fct_curr_dir(array, shell);
     if (is_builtin == EXECUTE_CURR_DIR) fct_curr_dir(array, shell);
-    if (is_builtin == CD_WAVE) cd_no_av_fct(shell, number_av);
+    if (is_builtin == CD_WAVE)          cd_no_av_fct(shell, number_av);
+    if (is_builtin == SET)              my_setlocal(shell, array);
 }
 
 int execute_cmd(char **array, shell_t *shell)
@@ -48,8 +49,14 @@ int execute_cmd(char **array, shell_t *shell)
 
 int check_path(shell_t *shell, char **array)
 {
-    char *str = my_getenv(shell->env, "PATH");
-    if (str[0] == '\0') {
+    char *path_value;
+    if (shell->islocal) {
+        path_value = my_getlocal(shell, "path");
+        path_value++;
+        path_value[my_strlen(path_value) - 1] = '\0';
+    } else
+        path_value = my_getenv(shell->env, "PATH");
+    if (path_value[0] == '\0') {
         my_eprintf("%s: Command not found.\n", array[0]);
         shell->temp_exit_code = 1;
         return 84;
@@ -71,6 +78,7 @@ int check_built_in_fct(char *str, char **array, int number_av)
         if (!my_strcmp(str, "setenv")) return ENV;
         if (!my_strcmp(str, "cd")) return CD_NO_AV;
     }
+    if (!my_strcmp(str, "set")) return SET;
     if (!my_strcmp(str, "exit")) return EXIT;
     if (!my_strncmp(str, "./", 2)) return EXECUTE;
     if (check_curr_dir(str)) return EXECUTE_CURR_DIR;

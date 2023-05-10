@@ -12,7 +12,8 @@ char *my_getstr(shell_t *shell)
     size_t size = 0;
 
     if (getline(&input_str, &size, stdin) == -1) {
-        my_eprintf("exit\n");
+        if (isatty(0))
+            my_eprintf("exit\n");
         exit(shell->exit_code);
     }
     if (input_str[my_strlen(input_str) - 1] == '\n')

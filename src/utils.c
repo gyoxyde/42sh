@@ -80,7 +80,7 @@ int prompt(shell_t *shell)
         shell->temp_oldpwd = my_strcat("", prompt);
     change_oldpwd(shell);
     if (my_getenv(shell->env, "PWD") == NULL
-    || getcwd(prompt, sizeof(prompt)) == NULL)
+        || getcwd(prompt, sizeof(prompt)) == NULL)
         return 84;
     for (; shell->env[i]; i++) {
         if (my_strncmp(shell->env[i], "PWD", 3) == 0) {
