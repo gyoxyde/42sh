@@ -29,8 +29,8 @@ void shell_loop(shell_t *shell)
     bool recurs = fill_array(shell, temp_array);
     char **array = shell->array;
     int number_av = 0;
-
     init_loop(shell);
+    array = search_special_var(array, shell);
     if (check_error_recursive(shell, temp_array) == true)
         return;
     for (; shell->array[number_av] != NULL; number_av++);

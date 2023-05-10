@@ -122,6 +122,13 @@ enum set_errors_enum {
     QUOTES
 };
 
+typedef struct special_variable_s {
+    char **env;
+    char **local;
+    int exit_code;
+} *special_var_t;
+
+
 int shell_start(shell_t *shell);
 void shell_loop(shell_t *shell);
 char *my_getstr(shell_t *shell);

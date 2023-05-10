@@ -14,6 +14,7 @@ SRC	=	src/main.c	\
 		src/isitdir.c	\
 		src/init.c \
 		src/my_asprintf.c \
+		src/search_special_var.c \
 		src/built_in_fct/fct_main.c	\
 		src/built_in_fct/utils_fct.c	\
 		src/built_in_fct/fct_current_dir.c	\
