@@ -38,8 +38,15 @@ typedef struct pipes_s {
     int status;
 } pipes_t;
 
+typedef struct input_s {
+    char *input_str;
+    size_t size;
+    int current_char;
+} input_t;
+
 typedef struct shell_s {
     pipes_t *p;
+    input_t *i;
     char **env;
     char **local;
     char **array;
@@ -281,4 +288,14 @@ int my_unset(shell_t *shell, char **array);
 int my_setlocal(shell_t *shell, char **array);
 int check_if_fct_is_here(char **path_array, char **array, int index);
 void init_local(shell_t *shell);
+
+//input/backspace_input.c
+void backspace(shell_t *shell);
+
+//input/arrow_input.c
+void arrow(shell_t *shell);
+
+//input/error_input.c
+void error_input(shell_t *shell, char c);
+
 #endif /* !mysh1_h */
