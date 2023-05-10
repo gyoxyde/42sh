@@ -5,29 +5,27 @@
 ** 42sh
 */
 
-#include "my.h"
-#include "unistd.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <signal.h>
-#include <limits.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#include <string.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <dirent.h>
-#include <termios.h>
-
 #ifndef mysh1_h
     #define mysh1_h
-    #define _GNU_SOURCE
-    #define my_error my_eprintf
+    #include "my.h"
+    #include "unistd.h"
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <stdbool.h>
+    #include <fcntl.h>
+    #include <sys/stat.h>
+    #include <signal.h>
+    #include <limits.h>
+    #include <sys/wait.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <sys/resource.h>
+    #include <string.h>
+    #include <errno.h>
+    #include <sys/types.h>
+    #include <dirent.h>
+    #include <termios.h>
+
 
 typedef struct pipes_s {
     int *fd;
@@ -136,6 +134,7 @@ int check_segfault(int status);
 void fill_exit_code(int status, shell_t *shell);
 int change_oldpwd(shell_t *shell);
 void check_errno(char **array);
+int my_asprintf(char **str, const char *format, ...);
 
 // return NULL if there's no key in the env. Else, it returns the value str.
 char *my_getenv(char **env, char *key);
@@ -276,6 +275,10 @@ void exec_parent_process(shell_t *shell, int status, int temp_status);
 void exec_child_process(shell_t *shell, char **array, char *path);
 
 int check_exec_cmd(char **array, shell_t *shell, char **path);
+
+
+//    BUILTIN SET / UNSET
+
 char *my_getlocal(shell_t *shell, char *key);
 char **get_keys(char **user_input, shell_t *shell);
 char **get_values(char **user_input, shell_t *shell);
@@ -288,6 +291,8 @@ int my_unset(shell_t *shell, char **array);
 int my_setlocal(shell_t *shell, char **array);
 int check_if_fct_is_here(char **path_array, char **array, int index);
 void init_local(shell_t *shell);
+
+//
 
 //input/backspace_input.c
 void backspace(shell_t *shell);
