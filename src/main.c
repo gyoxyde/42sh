@@ -9,11 +9,15 @@
 int main(int ac, char **const av, char** env)
 {
     (void)av;
+    remove(".alias");
+    int fd = open(".alias",  O_WRONLY | O_CREAT | O_APPEND, 0644);
+    close(fd);
     shell_t *shell = malloc(sizeof(shell_t));
     if (shell == NULL)
         exit(84);
     shell->p = malloc(sizeof(pipes_t));
     shell->i = malloc(sizeof(input_t));
+    shell->a = malloc(sizeof(alias_t));
     if (ac != 1)
         exit(84);
     shell->env = env;

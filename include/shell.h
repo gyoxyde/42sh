@@ -7,6 +7,7 @@
 
 #ifndef mysh1_h
     #define mysh1_h
+    #define HISTORY_SIZE 100
     #include "my.h"
     #include "unistd.h"
     #include <stdio.h>
@@ -26,6 +27,15 @@
     #include <dirent.h>
     #include <termios.h>
 
+typedef struct alias_s {
+    char *pathfile;
+    int number_letter;
+    char *contenu;
+    char **file;
+    int count;
+    int save_temp;
+    int save_file;
+} alias_t;
 
 typedef struct pipes_s {
     int *fd;
@@ -40,11 +50,16 @@ typedef struct input_s {
     char *input_str;
     size_t size;
     int current_char;
+    /////HISTORY
+    char **history;
+    int history_index;
+    int history_length;
 } input_t;
 
 typedef struct shell_s {
     pipes_t *p;
     input_t *i;
+    alias_t *a;
     char **env;
     char **local;
     char **array;
@@ -111,7 +126,10 @@ enum builtin_type {
     EXECUTE_CURR_DIR,
     CD_WAVE,
     SET,
-    UNSET
+    UNSET,
+    AL_NO_AV,
+    AL,
+    AL_ONE_AV
 };
 
 enum set_errors_enum {
@@ -130,8 +148,9 @@ typedef struct special_variable_s {
 
 
 int shell_start(shell_t *shell);
-void shell_loop(shell_t *shell);
+void shell_loop(shell_t *shell, char **temp_array);
 char *my_getstr(shell_t *shell);
+char *intty_or_not(shell_t *shell);
 int count_av(char *str);
 void signal_handler(void);
 void ctrl_c_handler(int signum);
@@ -144,6 +163,7 @@ void check_errno(char **array);
 int my_asprintf(char **str, const char *format, ...);
 
 // return NULL if there's no key in the env. Else, it returns the value str.
+void signal_handler(void);
 char *my_getenv(char **env, char *key);
 
 // Print the segfault_str by taking the "wait" status.
@@ -177,8 +197,13 @@ int unsetenv_fct(shell_t *shell, char **array, int number_av);
 void unsetenv_loop(shell_t *shell, char **array, int i);
 int check_key_str(char *key, shell_t *shell);
 int check_number_exit(shell_t *shell, char **array);
+void alias_no_av_fct(shell_t *shell);
+void alias_fct(shell_t *shell);
+int check_alias_exist(shell_t *shell);
+void alias_one_av(shell_t *shell);
 
 int check_path(shell_t *shell, char **array);
+int check_built_in_fct2(char *str);
 
 // Clean separator
 char *clean_separator(char *str);
@@ -274,7 +299,6 @@ int close_right_fd(shell_t *shell);
 int write_double_left_pipe(shell_t *shell, int *pipefd, char *file);
 char *get_heredoc(char *end_of_file);
 
-//ambiguous.c
 int check_for_ambiguous(shell_t *shell, char **array, bool *recurs);
 int ambiguous_error(shell_t *shell, int type, bool *recurs);
 
@@ -301,6 +325,9 @@ void init_local(shell_t *shell);
 
 //
 
+//input/is_input_tty.c
+char *intty_or_not(shell_t *shell);
+
 //input/backspace_input.c
 void backspace(shell_t *shell);
 
@@ -309,5 +336,27 @@ void arrow(shell_t *shell);
 
 //input/error_input.c
 void error_input(shell_t *shell, char c);
+
+//input/history/
+void load_history(shell_t *shell);
+void history_up(shell_t *shell);
+void history_down(shell_t *shell);
+void history_add(shell_t *shell);
+
+//file_info.c
+int file_info(char *pathfile, shell_t *shell);
+
+//Check alias type
+int check_which_alias(int number_av, char *str);
+
+//Define array to execute
+char **def_temp_array(shell_t *shell);
+
+//Find alias position
+void find_cor(char **temp_array, shell_t *shell);
+
+//create new_array
+char **create_new_array(shell_t *shell, char **temp_array, char **take_com,
+                        int count_space);
 
 #endif /* !mysh1_h */

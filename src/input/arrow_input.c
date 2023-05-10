@@ -12,11 +12,9 @@ void arrow(shell_t *shell)
     getchar();
     int arrow = getchar();
     if (arrow == 'A') {
-        printf("\033[2K\r");
-        printf("Up arrow pressed\n");
+        history_up(shell);
     } if (arrow == 'B') {
-        printf("\033[2K\r");
-        printf("Down arrow pressed\n");
+        history_down(shell);
     } if (arrow == 'D') {
         if (shell->i->current_char > 0) {
             shell->i->current_char--;
