@@ -43,6 +43,7 @@ char **my_str_to_word_array(char const *str, char separator);
 int my_put_float(double number);
 int my_printf(const char *format, ...);
 char *my_strdup(char const *src);
+void my_strswap(char **a, char **b);
 
 //removing all unecessary spaces & tabs
 char *clean_str(char *str);

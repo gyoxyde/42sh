@@ -12,3 +12,11 @@ void my_swap(int *a, int *b)
     *a = d ;
     *b = c ;
 }
+
+void my_strswap(char **a, char **b)
+{
+    char *c = *a ;
+    char *d = *b ;
+    *a = d ;
+    *b = c ;
+}
