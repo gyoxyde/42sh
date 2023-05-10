@@ -29,6 +29,16 @@
     #define _GNU_SOURCE
     #define my_error my_eprintf
 
+typedef struct alias_s {
+    char *pathfile;
+    int number_letter;
+    char *contenu;
+    char **file;
+    int count;
+    int save_temp;
+    int save_file;
+} alias_t;
+
 typedef struct pipes_s {
     int *fd;
     int *prev_fd;
@@ -47,6 +57,7 @@ typedef struct input_s {
 typedef struct shell_s {
     pipes_t *p;
     input_t *i;
+    alias_t *a;
     char **env;
     char **local;
     char **array;
@@ -113,11 +124,14 @@ enum builtin_type {
     EXECUTE_CURR_DIR,
     CD_WAVE,
     SET,
-    UNSET
+    UNSET,
+    AL_NO_AV,
+    AL,
+    AL_ONE_AV
 };
 
 enum set_errors_enum {
-    BEGIN_LETTER,
+    BEGIN_LETTER,src/my_asprintf.c \
     ALPHANUM_CHAR,
     PARENTHESIS_LEFT,
     PARENTHESIS_RIGHT,
@@ -125,19 +139,10 @@ enum set_errors_enum {
 };
 
 int shell_start(shell_t *shell);
-void shell_loop(shell_t *shell);
+void shell_loop(shell_t *shell, char **temp_array);
 char *my_getstr(shell_t *shell);
 int count_av(char *str);
-void signal_handler(void);
-void ctrl_c_handler(int signum);
-int get_correct_path_fct(char **array, shell_t *shell);
-int prompt(shell_t *shell);
-int check_segfault(int status);
-void fill_exit_code(int status, shell_t *shell);
-int change_oldpwd(shell_t *shell);
-void check_errno(char **array);
-
-// return NULL if there's no key in the env. Else, it returns the value str.
+void signal_handler(void);src/my_asprintf.c \nv. Else, it returns the value str.
 char *my_getenv(char **env, char *key);
 
 // Print the segfault_str by taking the "wait" status.
@@ -155,7 +160,7 @@ void built_in_function(char **array, shell_t *shell, int number_av);
 int check_built_in_fct(char *str, char **array, int number_av);
 
 // Check if it's a ./"str" file in the current directory before checking path
-int check_curr_dir(char *str);
+int check_curr_dir(char *str);src/my_asprintf.c \
 int fct_curr_dir(char **array, shell_t *shell);
 
 // Let's do a built_in_fct
@@ -171,8 +176,13 @@ int unsetenv_fct(shell_t *shell, char **array, int number_av);
 void unsetenv_loop(shell_t *shell, char **array, int i);
 int check_key_str(char *key, shell_t *shell);
 int check_number_exit(shell_t *shell, char **array);
+void alias_no_av_fct(shell_t *shell);
+void alias_fct(shell_t *shell);
+int check_alias_exist(shell_t *shell);
+void alias_one_av(shell_t *shell);
 
 int check_path(shell_t *shell, char **array);
+int check_built_in_fct2(char *str);
 
 // Clean separator
 char *clean_separator(char *str);
@@ -182,7 +192,7 @@ int count_sepator(char *str);
 
 // Clean right redirection
 char *clean_right_redi(char *str);
-void give_right_redi(char *str, int x, char *dest, int *i);
+void give_right_redi(char *str, int x, chasrc/my_asprintf.c \r *dest, int *i);
 int check_end_of_str_right_redi(char *str);
 int count_right_redi(char *str);
 void give_left_redi_two(char *str, int x, char *dest, int *i);
@@ -230,7 +240,7 @@ int check_start_right_str(char *str, int x, char *dest, int *i);
 void add_redright(shell_t *shell, char **array,
 int *simple_redR, int *double_redR);
 void add_redleft(shell_t *shell, char **array,
-int *simple_redL, int *double_redL);
+int *simple_redL, int *double_redL);src/my_asprintf.c \
 int check_second_redi(char **array, int i, int j);
 
 int get_avnb(shell_t *shell, char **array, int *number_av);
@@ -275,6 +285,9 @@ int ambiguous_error(shell_t *shell, int type, bool *recurs);
 void exec_parent_process(shell_t *shell, int status, int temp_status);
 void exec_child_process(shell_t *shell, char **array, char *path);
 
+
+//    BUILTIN SET / UNSET
+
 int check_exec_cmd(char **array, shell_t *shell, char **path);
 char *my_getlocal(shell_t *shell, char *key);
 char **get_keys(char **user_input, shell_t *shell);
@@ -289,6 +302,8 @@ int my_setlocal(shell_t *shell, char **array);
 int check_if_fct_is_here(char **path_array, char **array, int index);
 void init_local(shell_t *shell);
 
+//
+
 //input/backspace_input.c
 void backspace(shell_t *shell);
 
@@ -297,5 +312,21 @@ void arrow(shell_t *shell);
 
 //input/error_input.c
 void error_input(shell_t *shell, char c);
+
+//file_info.c
+int file_info(char *pathfile, shell_t *shell);
+
+//Check alias type
+int check_which_alias(int number_av, char *str);
+
+//Define array to execute
+char **def_temp_array(shell_t *shell);
+
+//Find alias position
+void find_cor(char **temp_array, shell_t *shell);
+
+//create new_array
+char **create_new_array(shell_t *shell, char **temp_array, char **take_com,
+                        int count_space);
 
 #endif /* !mysh1_h */

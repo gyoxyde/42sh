@@ -23,6 +23,9 @@ void built_in_function(char **array, shell_t *shell, int number_av)
     if (is_builtin == CD_WAVE)          cd_no_av_fct(shell, number_av);
     if (is_builtin == SET)              my_setlocal(shell, array);
     if (is_builtin == UNSET)            my_unset(shell, array);
+    if (is_builtin == AL_NO_AV)         alias_no_av_fct(shell);
+    if (is_builtin == AL)               alias_fct(shell);
+    if (is_builtin == AL_ONE_AV)        alias_one_av(shell);
 }
 
 int execute_cmd(char **array, shell_t *shell)
@@ -74,17 +77,15 @@ int check_built_in_fct(char *str, char **array, int number_av)
         if (!my_strcmp(str, "setenv")) return SETENV;
         if (!my_strcmp(str, "unsetenv")) return UNSETENV;
         if (!my_strncmp(str, "./", 2)) return EXECUTE;
+        if (check_which_alias(number_av, str) == 12) return AL;
+        if (check_which_alias(number_av, str) == 13) return AL_ONE_AV;
     } else {
         if (!my_strcmp(str, "env")) return ENV;
         if (!my_strcmp(str, "setenv")) return ENV;
         if (!my_strcmp(str, "cd")) return CD_NO_AV;
+        if (my_strcmp(str, "alias") == 0) return AL_NO_AV;
     }
-    if (!my_strcmp(str, "unset")) return UNSET;
-    if (!my_strcmp(str, "set")) return SET;
-    if (!my_strcmp(str, "exit")) return EXIT;
-    if (!my_strncmp(str, "./", 2)) return EXECUTE;
-    if (check_curr_dir(str)) return EXECUTE_CURR_DIR;
-    return NOT_BUILT_IN;
+    return check_built_in_fct2(str);
 }
 
 void print_env(char **env)
