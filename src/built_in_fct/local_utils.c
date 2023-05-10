@@ -47,7 +47,7 @@ char **get_flat_input(char **user_input, shell_t *shell)
     int quotes = 0;
     char c;
     for (int i = 2; user_input[i]; i++)
-        asprintf(&str, "%s%s ", str, user_input[i]);
+        my_asprintf(&str, "%s%s ", str, user_input[i]);
     for (int i = 0; str[i]; i++)
         move_string(str, &i);
     for (int i = 0, parenth = 0; str[i]; i++) {

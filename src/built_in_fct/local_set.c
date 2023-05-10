@@ -11,9 +11,9 @@ static void add_inexistant(shell_t *shell, char *key, char *value)
 {
     int index = get_local_index(shell->local);
     if (value)
-        asprintf(&shell->local[index], "%s=%s", key, value);
+        my_asprintf(&shell->local[index], "%s=%s", key, value);
     else
-        asprintf(&shell->local[index], "%s=", key);
+        my_asprintf(&shell->local[index], "%s=", key);
 }
 
 void add_couples(shell_t *shell, char **keys, char **values)
@@ -28,9 +28,9 @@ void add_couples(shell_t *shell, char **keys, char **values)
             index = (strncmp(shell->local[j], keys[i], strlen(keys[i])) == 0)
                 ? j : -1;
         if (values[i])
-            asprintf(&shell->local[index], "%s=%s", keys[i], values[i]);
+            my_asprintf(&shell->local[index], "%s=%s", keys[i], values[i]);
         else
-            asprintf(&shell->local[index], "%s=", keys[i]);
+            my_asprintf(&shell->local[index], "%s=", keys[i]);
     }
 }
 

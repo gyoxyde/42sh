@@ -5,29 +5,26 @@
 ** 42sh
 */
 
-#include "my.h"
-#include "unistd.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <signal.h>
-#include <limits.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#include <string.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <dirent.h>
-#include <termios.h>
-
 #ifndef mysh1_h
     #define mysh1_h
-    #define _GNU_SOURCE
-    #define my_error my_eprintf
+    #include "my.h"
+    #include "unistd.h"
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <stdbool.h>
+    #include <fcntl.h>
+    #include <sys/stat.h>
+    #include <signal.h>
+    #include <limits.h>
+    #include <sys/wait.h>
+    #include <sys/types.h>
+    #include <sys/time.h>
+    #include <sys/resource.h>
+    #include <string.h>
+    #include <errno.h>
+    #include <sys/types.h>
+    #include <dirent.h>
+    #include <termios.h>
 
 typedef struct alias_s {
     char *pathfile;
@@ -131,7 +128,7 @@ enum builtin_type {
 };
 
 enum set_errors_enum {
-    BEGIN_LETTER,src/my_asprintf.c \
+    BEGIN_LETTER,
     ALPHANUM_CHAR,
     PARENTHESIS_LEFT,
     PARENTHESIS_RIGHT,
@@ -142,7 +139,18 @@ int shell_start(shell_t *shell);
 void shell_loop(shell_t *shell, char **temp_array);
 char *my_getstr(shell_t *shell);
 int count_av(char *str);
-void signal_handler(void);src/my_asprintf.c \nv. Else, it returns the value str.
+void signal_handler(void);
+void ctrl_c_handler(int signum);
+int get_correct_path_fct(char **array, shell_t *shell);
+int prompt(shell_t *shell);
+int check_segfault(int status);
+void fill_exit_code(int status, shell_t *shell);
+int change_oldpwd(shell_t *shell);
+void check_errno(char **array);
+int my_asprintf(char **str, const char *format, ...);
+
+// return NULL if there's no key in the env. Else, it returns the value str.
+void signal_handler(void);
 char *my_getenv(char **env, char *key);
 
 // Print the segfault_str by taking the "wait" status.
@@ -160,7 +168,7 @@ void built_in_function(char **array, shell_t *shell, int number_av);
 int check_built_in_fct(char *str, char **array, int number_av);
 
 // Check if it's a ./"str" file in the current directory before checking path
-int check_curr_dir(char *str);src/my_asprintf.c \
+int check_curr_dir(char *str);
 int fct_curr_dir(char **array, shell_t *shell);
 
 // Let's do a built_in_fct
@@ -192,7 +200,7 @@ int count_sepator(char *str);
 
 // Clean right redirection
 char *clean_right_redi(char *str);
-void give_right_redi(char *str, int x, chasrc/my_asprintf.c \r *dest, int *i);
+void give_right_redi(char *str, int x, char *dest, int *i);
 int check_end_of_str_right_redi(char *str);
 int count_right_redi(char *str);
 void give_left_redi_two(char *str, int x, char *dest, int *i);
@@ -240,7 +248,7 @@ int check_start_right_str(char *str, int x, char *dest, int *i);
 void add_redright(shell_t *shell, char **array,
 int *simple_redR, int *double_redR);
 void add_redleft(shell_t *shell, char **array,
-int *simple_redL, int *double_redL);src/my_asprintf.c \
+int *simple_redL, int *double_redL);
 int check_second_redi(char **array, int i, int j);
 
 int get_avnb(shell_t *shell, char **array, int *number_av);
@@ -285,10 +293,11 @@ int ambiguous_error(shell_t *shell, int type, bool *recurs);
 void exec_parent_process(shell_t *shell, int status, int temp_status);
 void exec_child_process(shell_t *shell, char **array, char *path);
 
+int check_exec_cmd(char **array, shell_t *shell, char **path);
+
 
 //    BUILTIN SET / UNSET
 
-int check_exec_cmd(char **array, shell_t *shell, char **path);
 char *my_getlocal(shell_t *shell, char *key);
 char **get_keys(char **user_input, shell_t *shell);
 char **get_values(char **user_input, shell_t *shell);
