@@ -91,7 +91,7 @@ clean:
 fclean:     clean
 	$(MAKE) -C lib/my fclean
 	rm -f $(NAME)
-	rm -rf .alias history.txt
+	rm -rf .alias .history
 
 re: fclean all
 
