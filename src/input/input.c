@@ -7,6 +7,7 @@
 
 #include "shell.h"
 
+
 char *string_shift(char *string, shell_t *shell)
 {
     for (int i = (int) shell->i->size; i > shell->i->current_char; i--) {
@@ -67,5 +68,6 @@ char *my_getstr(shell_t *shell)
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
     error_input(shell, c);
     putchar('\n');
+    history_add(shell);
     return shell->i->input_str;
 }
