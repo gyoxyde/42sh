@@ -92,4 +92,5 @@ int my_unset(shell_t *shell, char **array)
             continue;
         delete_line(shell->local, array[i]);
     }
+    return 0;
 }

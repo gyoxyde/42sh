@@ -7,7 +7,7 @@
 
 #include "my.h"
 #include "unistd.h"
-#include "stdio.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <fcntl.h>
@@ -273,4 +273,11 @@ char **get_keys(char **user_input, shell_t *shell);
 char **get_values(char **user_input, shell_t *shell);
 int get_local_index(char **local);
 void order_local(char **keys, char **values, int len);
+char *set_errors(int type, shell_t *shell);
+char **get_flat_input(char **user_input, shell_t *shell);
+int my_set_display(shell_t *shell);
+int my_unset(shell_t *shell, char **array);
+int my_setlocal(shell_t *shell, char **array);
+int check_if_fct_is_here(char **path_array, char **array, int index);
+void init_local(shell_t *shell);
 #endif /* !mysh1_h */

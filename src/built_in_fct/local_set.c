@@ -36,13 +36,12 @@ void add_couples(shell_t *shell, char **keys, char **values)
 
 int my_setlocal(shell_t *shell, char **array)
 {
-    char **local = shell->local;
     char **user_input;
     char **keys;
     char **values;
 
     if (array[1] == NULL) return my_set_display(shell);
-    user_input = get_flat_input(array);
+    user_input = get_flat_input(array, shell);
     if (user_input == NULL) return 84;
     keys = get_keys(user_input, shell);
     values = get_values(user_input, shell);

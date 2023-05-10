@@ -8,7 +8,6 @@
 
 int main(int ac, char **const av, char** env)
 {
-    printf("\033[0;30m");
     (void)av;
     shell_t *shell = malloc(sizeof(shell_t));
     if (shell == NULL)
@@ -19,6 +18,5 @@ int main(int ac, char **const av, char** env)
     shell->env = env;
     init_local(shell);
     shell_start(shell);
-    printf("\033[0m");
     return 0;
 }

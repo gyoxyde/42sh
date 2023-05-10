@@ -28,7 +28,7 @@ void move_string(char *str, int *i)
 {
     char c = str[*i];
 
-    if (i > 0 && (c == '=' || c == '(' || c == ')') && str[*i - 1] == ' ') {
+    if (*i > 0 && (c == '=' || c == '(' || c == ')') && str[*i - 1] == ' ') {
         for (int j = (*i) - 1; str[j]; j++)
             str[j] = str[j + 1];
         *i = -1;
@@ -46,7 +46,6 @@ char **get_flat_input(char **user_input, shell_t *shell)
     char *str = strdup(my_strcat(user_input[1], " "));
     int quotes = 0;
     char c;
-
     for (int i = 2; user_input[i]; i++)
         asprintf(&str, "%s%s ", str, user_input[i]);
     for (int i = 0; str[i]; i++)
@@ -56,11 +55,13 @@ char **get_flat_input(char **user_input, shell_t *shell)
         if (c == '\"') quotes++;
         if (c == '(') parenth++;
         if (c == ')') parenth--;
-        if (parenth < 0) return set_errors(PARENTHESIS_RIGHT, shell);
-        if (parenth > 1) return set_errors(PARENTHESIS_LEFT, shell);
+        if (parenth < 0) set_errors(PARENTHESIS_RIGHT, shell);
+        if (parenth > 1) set_errors(PARENTHESIS_LEFT, shell);
+        if (parenth < 0 || parenth > 1) return NULL;
         str[i] = (c == ' ' && parenth != 0) ? ':' : c;
     }
-    if (quotes % 2 != 0) return set_errors(QUOTES, shell);
+    if (quotes % 2 != 0) set_errors(QUOTES, shell);
+    if (quotes % 2 != 0) return NULL;
     return my_str_to_word_array(clean_str(str), ' ');
 }
 
