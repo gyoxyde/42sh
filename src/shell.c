@@ -33,19 +33,14 @@ void shell_loop(shell_t *shell, char **temp_array)
     int number_av = 0;
     file_info(".alias", shell);
     init_loop(shell);
-    if (check_globbings_env(shell, array) == 84)
-        return;
-    if (check_error_recursive(shell, temp_array) == true)
-        return;
+    if (check_globbings_env(shell, array) == 84) return;
+    if (check_error_recursive(shell, temp_array) == true) return;
     for (; shell->array[number_av + 1] != NULL; number_av++);
     if (check_redirection(shell, array))
         get_avnb(shell, array, &number_av);
-    if (check_error_redirection(shell, array, &recurs))
-        return;
-    if (parthing_for_redirections(shell, array, number_av) == 84)
-        return;
-    if (close_right_fd(shell) == 84)
-        return;
+    if (check_error_redirection(shell, array, &recurs)) return;
+    if (parthing_for_redirections(shell, array, number_av) == 84) return;
+    if (close_right_fd(shell) == 84) return;
     if (recurs)
         shell_loop(shell, temp_array);
 }

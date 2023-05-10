@@ -54,8 +54,7 @@ char **get_flat_input(char **user_input, shell_t *shell)
     for (int i = 0, parenth = 0; str[i]; i++) {
         c = str[i];
         if (c == '\"') quotes++;
-        if (c == '(') parenth++;
-        if (c == ')') parenth--;
+        parenth += (c == '(') ? 1 : (c == ')') ? -1 : 0;
         if (parenth < 0) set_errors(PARENTHESIS_RIGHT, shell);
         if (parenth > 1) set_errors(PARENTHESIS_LEFT, shell);
         if (parenth < 0 || parenth > 1) return NULL;
