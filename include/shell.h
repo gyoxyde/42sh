@@ -324,6 +324,8 @@ int check_if_fct_is_here(char **path_array, char **array, int index);
 void init_local(shell_t *shell);
 
 char **search_special_var(char **args, shell_t *shell);
+char **change_globbings(char **array);
+int check_globbings_env(shell_t *shell, char **array);
 //
 
 //input/is_input_tty.c

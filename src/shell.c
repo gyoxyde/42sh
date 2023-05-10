@@ -33,7 +33,8 @@ void shell_loop(shell_t *shell, char **temp_array)
     int number_av = 0;
     file_info(".alias", shell);
     init_loop(shell);
-    array = search_special_var(array, shell);
+    if (check_globbings_env(shell, array) == 84)
+        return;
     if (check_error_recursive(shell, temp_array) == true)
         return;
     for (; shell->array[number_av + 1] != NULL; number_av++);

@@ -19,3 +19,14 @@ void get_cleaned_str(shell_t *shell)
     str = clean_pipe(str);
     shell->str = my_strdup(str);
 }
+
+int check_globbings_env(shell_t *shell, char **array)
+{
+    array = search_special_var(array, shell);
+    if (array == NULL)
+        return 84;
+    array = change_globbings(array);
+    if (array == NULL)
+        return 84;
+    return 0;
+}
