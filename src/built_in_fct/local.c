@@ -65,3 +65,31 @@ int my_set_display(shell_t *shell)
     }
     return 0;
 }
+
+static void delete_line(char **local, char *key)
+{
+    int len = strlen(key);
+    int index;
+
+    for (int i = 0; local[i]; i++) {
+        if (strncmp(local[i], key, len) == 0) {
+            index = i;
+            break;
+        }
+    }
+    for (int i = index; local[i]; i++)
+        local[i] = local[i + 1];
+}
+
+int my_unset(shell_t *shell, char **array)
+{
+    if (array[1] == NULL) {
+        my_eprintf("unset: Too few arguments.\n");
+        return 84;
+    }
+    for (int i = 1; array[i]; i++) {
+        if (my_getlocal(shell, array[i]) == NULL)
+            continue;
+        delete_line(shell->local, array[i]);
+    }
+}

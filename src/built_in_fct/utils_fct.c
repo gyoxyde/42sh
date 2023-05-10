@@ -12,7 +12,6 @@ int check_exec_cmd(char **array, shell_t *shell, char **path)
     if (check_path(shell, array) != 0)
         return 84;
     char *path_value;
-    printf("here\n");
     if (shell->islocal) {
         path_value = my_getlocal(shell, "path");
         path_value++;

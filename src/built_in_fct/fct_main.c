@@ -22,6 +22,7 @@ void built_in_function(char **array, shell_t *shell, int number_av)
     if (is_builtin == EXECUTE_CURR_DIR) fct_curr_dir(array, shell);
     if (is_builtin == CD_WAVE)          cd_no_av_fct(shell, number_av);
     if (is_builtin == SET)              my_setlocal(shell, array);
+    if (is_builtin == UNSET)            my_unset(shell, array);
 }
 
 int execute_cmd(char **array, shell_t *shell)
@@ -78,6 +79,7 @@ int check_built_in_fct(char *str, char **array, int number_av)
         if (!my_strcmp(str, "setenv")) return ENV;
         if (!my_strcmp(str, "cd")) return CD_NO_AV;
     }
+    if (!my_strcmp(str, "unset")) return UNSET;
     if (!my_strcmp(str, "set")) return SET;
     if (!my_strcmp(str, "exit")) return EXIT;
     if (!my_strncmp(str, "./", 2)) return EXECUTE;
