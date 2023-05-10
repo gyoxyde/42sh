@@ -5,6 +5,7 @@
 ** 42sh
 */
 #include "my.h"
+#define _GNU_SOURCE
 #include "unistd.h"
 #include "stdio.h"
 #include <stdlib.h>
@@ -24,6 +25,7 @@
 
 #ifndef mysh1_h
     #define mysh1_h
+    #define my_error my_eprintf
 
 typedef struct pipes_s {
     int *fd;
@@ -67,6 +69,7 @@ typedef struct shell_s {
     ////////////////////////////
     bool recurs_pipe;
     bool hasBeenPiped;
+    bool islocal;
 } shell_t;
 
 enum redirections_errors_type {
@@ -99,7 +102,17 @@ enum builtin_type {
     CD_DASH,
     EXECUTE,
     EXECUTE_CURR_DIR,
-    CD_WAVE
+    CD_WAVE,
+    SET,
+    UNSET
+};
+
+enum set_errors_enum {
+    BEGIN_LETTER,
+    ALPHANUM_CHAR,
+    PARENTHESIS_LEFT,
+    PARENTHESIS_RIGHT,
+    QUOTES
 };
 
 int shell_start(shell_t *shell);
@@ -254,5 +267,9 @@ void exec_parent_process(shell_t *shell, int status, int temp_status);
 void exec_child_process(shell_t *shell, char **array, char *path);
 
 int check_exec_cmd(char **array, shell_t *shell, char **path);
-
+char *my_getlocal(shell_t *shell, char *key);
+char **get_keys(char **user_input, shell_t *shell);
+char **get_values(char **user_input, shell_t *shell);
+int get_local_index(char **local);
+void order_local(char **keys, char **values, int len);
 #endif /* !mysh1_h */
