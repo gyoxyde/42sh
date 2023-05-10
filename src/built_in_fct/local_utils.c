@@ -12,7 +12,8 @@ char *set_errors(int type, shell_t *shell)
     if (type == BEGIN_LETTER)
         my_eprintf("set: Variable name must begin with a letter.\n");
     if (type == ALPHANUM_CHAR)
-        my_eprintf("set: Variable name must contain alphanumeric characters.\n");
+        my_eprintf
+            ("set: Variable name must contain alphanumeric characters.\n");
     if (type == PARENTHESIS_LEFT)
         my_eprintf("Too many ('s.\n");
     if (type == PARENTHESIS_RIGHT)
@@ -31,7 +32,9 @@ void move_string(char *str, int *i)
         for (int j = (*i) - 1; str[j]; j++)
             str[j] = str[j + 1];
         *i = -1;
-    } else if ((c == '=' || c == '(') && str[*i + 1] == ' ') {
+        return;
+    }
+    if ((c == '=' || c == '(') && str[*i + 1] == ' ') {
         for (int j = (*i) + 1; str[j]; j++)
             str[j] = str[j + 1];
         *i = -1;

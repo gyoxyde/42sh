@@ -62,8 +62,3 @@ void init_local(shell_t *shell)
     init_local_bis(shell, &i);
     shell->local[i] = NULL;
 }
-
-/*
-(dans l'ordre alphabetique)
-(set a=z)
-*/

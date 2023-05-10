@@ -22,6 +22,7 @@ SRC	=	src/main.c	\
 		src/built_in_fct/setenv_fct.c	\
 		src/built_in_fct/unsetenv_fct.c	\
 		src/built_in_fct/local.c \
+		src/built_in_fct/local_set.c	\
 		src/built_in_fct/local_utils.c	\
 		src/built_in_fct/local_keys_values.c	\
 		src/punctuation/clean/clean_separator.c	\

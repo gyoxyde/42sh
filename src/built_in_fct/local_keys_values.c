@@ -21,8 +21,8 @@ static int check_local_key_str(char *key, shell_t *shell)
     for (int i = 1; key[i] != '\0'; i++) {
         c = key[i];
         if (!((c >= 'a' && c <= 'z') || (c == '\"' || c == '(' || c == ')') ||
-           (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ||
-           (c == '_' || c == '.' || c == '=' || c == ':'))) {
+        (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ||
+        (c == '_' || c == '.' || c == '=' || c == ':'))) {
             set_errors(ALPHANUM_CHAR, shell);
             return 84;
         }

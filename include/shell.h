@@ -4,8 +4,8 @@
 ** File description:
 ** 42sh
 */
+
 #include "my.h"
-#define _GNU_SOURCE
 #include "unistd.h"
 #include "stdio.h"
 #include <stdlib.h>
@@ -25,6 +25,7 @@
 
 #ifndef mysh1_h
     #define mysh1_h
+    #define _GNU_SOURCE
     #define my_error my_eprintf
 
 typedef struct pipes_s {
