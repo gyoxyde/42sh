@@ -17,19 +17,21 @@ int shell_start(shell_t *shell)
         get_cleaned_str(shell);
         if (my_strcmp(shell->str, "") != 0) {
             shell->number_av = count_av(shell->str);
-            shell_loop(shell);
+            file_info(".alias", shell);
+            char **temp_array = def_temp_array(shell);
+            shell_loop(shell, temp_array);
         }
     }
     return 0;
 }
 
-void shell_loop(shell_t *shell)
+void shell_loop(shell_t *shell, char **temp_array)
 {
-    char **temp_array = my_str_to_word_array(shell->str, ' ');
+    temp_array = def_temp_array(shell);
     bool recurs = fill_array(shell, temp_array);
     char **array = shell->array;
     int number_av = 0;
-
+    file_info(".alias", shell);
     init_loop(shell);
     if (check_error_recursive(shell, temp_array) == true)
         return;
@@ -44,7 +46,7 @@ void shell_loop(shell_t *shell)
     if (close_right_fd(shell) == 84)
         return;
     if (recurs)
-        shell_loop(shell);
+        shell_loop(shell, temp_array);
 }
 
 int parthing_for_redirections(shell_t *shell, char **array, int number_av)
