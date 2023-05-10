@@ -36,8 +36,7 @@ void shell_loop(shell_t *shell, char **temp_array)
     array = search_special_var(array, shell);
     if (check_error_recursive(shell, temp_array) == true)
         return;
-    for (; shell->array[number_av] != NULL; number_av++);
-    number_av = number_av - 1;
+    for (; shell->array[number_av + 1] != NULL; number_av++);
     if (check_redirection(shell, array))
         get_avnb(shell, array, &number_av);
     if (check_error_redirection(shell, array, &recurs))

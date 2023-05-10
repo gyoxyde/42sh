@@ -22,11 +22,11 @@ static char *get_var_string(char *var, special_var_t special_var)
     return NULL;
 }
 
-static int replace_exit_code(char *return_str, char *arg, int exit_code,
+static int replace_exit_code(char **return_str, char *arg, int exit_code,
     int index)
 {
     if (strncmp(arg + index, "$?", 2) == 0) {
-        my_asprintf(&return_str, "%.*s%d%s",
+        my_asprintf(return_str, "%.*s%d%s",
             index, arg, exit_code, arg + index + 2);
         return 1;
     }
@@ -40,7 +40,7 @@ static char *replace_var(char *arg, int *index, special_var_t special_var)
     char *return_str;
     char *var_string;
 
-    if (replace_exit_code(return_str, arg, special_var->exit_code, *index))
+    if (replace_exit_code(&return_str, arg, special_var->exit_code, *index))
         return return_str;
     for (; arg[*index + len] && my_str_isalpha(&(arg[*index + len]));len++);
     my_asprintf(&var_name, "%.*s%c", len - 1, (arg + *index + 1), '=');

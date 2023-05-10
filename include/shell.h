@@ -323,6 +323,7 @@ int my_setlocal(shell_t *shell, char **array);
 int check_if_fct_is_here(char **path_array, char **array, int index);
 void init_local(shell_t *shell);
 
+char **search_special_var(char **args, shell_t *shell);
 //
 
 //input/is_input_tty.c
