@@ -7,7 +7,6 @@
 
 SRC	=	src/main.c	\
 		src/shell.c	\
-		src/input.c	\
 		src/error_handling.c	\
 		src/path_handler.c	\
 		src/get_cleaned_str.c \
@@ -40,6 +39,10 @@ SRC	=	src/main.c	\
 		src/error_command.c	\
 		src/punctuation/redirection/utils_redirection.c	\
 		src/punctuation/redirection/ambiguous.c	\
+		src/input/input.c	\
+		src/input/arrow_input.c	\
+		src/input/backspace_input.c	\
+		src/input/error_input.c	\
 
 NAME	=	42sh
 
