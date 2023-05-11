@@ -120,7 +120,8 @@ enum builtin_type {
     AL,
     AL_ONE_AV,
     UA,
-    UA_NO_AV
+    UA_NO_AV,
+    ECHO
 };
 
 enum set_errors_enum {
@@ -193,6 +194,7 @@ void alias_fct(shell_t *shell);
 int check_alias_exist(shell_t *shell);
 void alias_one_av(shell_t *shell);
 void unalias_function(shell_t *shell);
+void echo_function(char **array);
 
 int check_path(shell_t *shell, char **array);
 int check_built_in_fct2(char *str);
