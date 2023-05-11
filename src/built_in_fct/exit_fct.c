@@ -20,9 +20,11 @@ int exit_fct(int number_av, shell_t *shell, char **array)
             return 42;
         }
         my_printf("exit\n");
+        free(shell->a->file);
         exit(shell->exit_code);
     } else {
     my_printf("exit\n");
+    free(shell->a->file);
     exit(0);
     }
 }

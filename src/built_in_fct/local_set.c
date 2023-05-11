@@ -22,7 +22,7 @@ void add_couples(shell_t *shell, char **keys, char **values)
     for (int i = 0; keys[i]; i++) {
         if (my_getlocal(shell, keys[i]) == NULL) {
             add_inexistant(shell, keys[i], values[i]);
-            return;
+            continue;
         }
         for (int j = 0; shell->local[j]; j++)
             index = (strncmp(shell->local[j], keys[i], strlen(keys[i])) == 0)

@@ -9,7 +9,6 @@
 
 void print_com(shell_t *shell)
 {
-    file_info(".alias", shell);
     int pos = 0;
     int size = strlen(shell->array[1]);
     for (; my_strncmp(shell->array[1], shell->a->file[pos], size) != 0; pos++);

@@ -31,3 +31,11 @@ char **create_new_array(shell_t *shell, char **temp_array, char **take_com,
     new_array[y] = NULL;
     return new_array;
 }
+
+char **create_tab_alias(char *str, char **alias_tab)
+{
+    alias_tab = malloc (sizeof(char *) * 1 + 1);
+    alias_tab[0] = str;
+    alias_tab[1] = NULL;
+    return alias_tab;
+}
