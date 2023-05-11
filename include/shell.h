@@ -130,7 +130,9 @@ enum builtin_type {
     UNSET,
     AL_NO_AV,
     AL,
-    AL_ONE_AV
+    AL_ONE_AV,
+    UA,
+    UA_NO_AV
 };
 
 enum set_errors_enum {
@@ -202,6 +204,7 @@ void alias_no_av_fct(shell_t *shell);
 void alias_fct(shell_t *shell);
 int check_alias_exist(shell_t *shell);
 void alias_one_av(shell_t *shell);
+void unalias_function(shell_t *shell);
 
 int check_path(shell_t *shell, char **array);
 int check_built_in_fct2(char *str);

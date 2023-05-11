@@ -26,6 +26,8 @@ void built_in_function(char **array, shell_t *shell, int number_av)
     if (is_builtin == AL_NO_AV)         alias_no_av_fct(shell);
     if (is_builtin == AL)               alias_fct(shell);
     if (is_builtin == AL_ONE_AV)        alias_one_av(shell);
+    if (is_builtin == UA)               unalias_function(shell);
+    if (is_builtin == UA_NO_AV)     printf("unalias: Too many arguments.\n");
 }
 
 int execute_cmd(char **array, shell_t *shell)
@@ -77,11 +79,13 @@ int check_built_in_fct(char *str, char **array, int number_av)
         if (!my_strncmp(str, "./", 2)) return EXECUTE;
         if (check_which_alias(number_av, str) == 12) return AL;
         if (check_which_alias(number_av, str) == 13) return AL_ONE_AV;
+        if (!my_strcmp(str, "unalias")) return UA;
     } else {
         if (!my_strcmp(str, "env")) return ENV;
         if (!my_strcmp(str, "setenv")) return ENV;
         if (!my_strcmp(str, "cd")) return CD_NO_AV;
         if (my_strcmp(str, "alias") == 0) return AL_NO_AV;
+        if (!my_strcmp(str, "unalias")) return UA_NO_AV;
     }
     return check_built_in_fct2(str);
 }
