@@ -60,6 +60,7 @@ SRC	=	src/main.c	\
 		src/input/history/history_down.c \
 		src/input/is_input_tty.c \
 		src/built_in_fct/unalias_fct.c \
+		src/built_in_fct/utils_env.c	\
 
 NAME	=	42sh
 

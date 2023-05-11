@@ -6,11 +6,8 @@
 */
 #include "shell.h"
 
-void built_in_function(char **array, shell_t *shell, int number_av)
+int do_built_in(shell_t *shell, char **array, int number_av, int is_builtin)
 {
-    int is_builtin = check_built_in_fct(array[0], array, number_av);
-    if (is_builtin == NOT_BUILT_IN)
-        return;
     if (is_builtin == CD)               cd_fct(shell, array[1], number_av);
     if (is_builtin == SETENV)           setenv_fct(shell, array, number_av);
     if (is_builtin == UNSETENV)         unsetenv_fct(shell, array, number_av);
@@ -28,6 +25,31 @@ void built_in_function(char **array, shell_t *shell, int number_av)
     if (is_builtin == AL_ONE_AV)        alias_one_av(shell);
     if (is_builtin == UA)               unalias_function(shell);
     if (is_builtin == UA_NO_AV)     printf("unalias: Too many arguments.\n");
+    return 0;
+}
+
+void built_in_function(char **array, shell_t *shell, int number_av)
+{
+    int is_builtin = check_built_in_fct(array[0], array, number_av);
+    if (is_builtin == NOT_BUILT_IN)
+        return;
+    if (shell->hasBeenPiped == false) {
+        do_built_in(shell, array, number_av, is_builtin);
+        return;
+    }
+    pid_t pid = fork();
+    if (pid == 0) {
+        pipe_child(shell);
+        exit(do_built_in(shell, array, number_av, is_builtin));
+    } else {
+        if (pid > 0) {
+            pipe_parent(shell);
+            close_all_fd(shell, array, number_av);
+        } else {
+        perror("fork");
+        exit(84);
+        }
+    }
 }
 
 int execute_cmd(char **array, shell_t *shell)
@@ -88,10 +110,4 @@ int check_built_in_fct(char *str, char **array, int number_av)
         if (!my_strcmp(str, "unalias")) return UA_NO_AV;
     }
     return check_built_in_fct2(str);
-}
-
-void print_env(char **env)
-{
-    for (int i = 0; env[i] != NULL; i++)
-        my_printf("%s\n", env[i]);
 }
