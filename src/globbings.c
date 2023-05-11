@@ -35,7 +35,7 @@ char *parse_glob(char *str, char *command)
     return str;
 }
 
-char **change_globbings(char **array)
+char **change_globbings(char **array, shell_t *shell)
 {
     char *str = NULL;
 
@@ -43,6 +43,10 @@ char **change_globbings(char **array)
         str = parse_glob(array[i], array[0]);
         if (str != NULL)
             array[i] = str;
+        else {
+            shell->temp_exit_code = 1;
+            return NULL;
+        }
         str = NULL;
     }
     return array;

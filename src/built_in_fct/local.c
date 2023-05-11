@@ -9,14 +9,15 @@
 
 char *my_getlocal(shell_t *shell, char *key)
 {
-    int len = strlen(key);
+    char *key_tmp = my_strcat(key, "=");
+    int len = strlen(key_tmp);
     char *value = NULL;
     char **local = shell->local;
     int found = 0;
 
     for (int i = 0; local[i]; i++) {
-        if (strncmp(local[i], key, len) == 0) {
-            value = strdup(local[i] + len + 1);
+        if (my_strncmp(local[i], key_tmp, len) == 0) {
+            value = strdup(local[i] + len);
             found = 1;
             break;
         }

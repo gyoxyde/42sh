@@ -25,7 +25,7 @@ int check_globbings_env(shell_t *shell, char **array)
     array = search_special_var(array, shell);
     if (array == NULL)
         return 84;
-    array = change_globbings(array);
+    array = change_globbings(array, shell);
     if (array == NULL)
         return 84;
     return 0;

@@ -10,14 +10,13 @@
 static int check_local_key_str(char *key, shell_t *shell)
 {
     char c = key[0];
-
     if (!((c >= 'a' && c <= 'z') || (c == '\"' || c == '(' || c == ')') ||
         (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ||
         (c == '_' || c == '.' || c == '=' || c == ':' || c == '\0'))) {
         set_errors(BEGIN_LETTER, shell);
         return 84;
     }
-    for (int i = 1; key[i] != '\0'; i++) {
+    for (int i = 1; key[i]; i++) {
         c = key[i];
         if (!((c >= 'a' && c <= 'z') || (c == '\"' || c == '(' || c == ')') ||
         (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ||
