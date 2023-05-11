@@ -88,7 +88,9 @@ enum redirections_errors_type {
     INVALID_CMD,
     NO_DUP2,
     AMBIGUOUS_INPUT,
-    AMBIGUOUS_OUTPUT
+    AMBIGUOUS_OUTPUT,
+    RIGHT_REDI,
+    LEFT_REDI
 };
 
 enum cd_errors_type {
@@ -341,5 +343,8 @@ void find_cor(char **temp_array, shell_t *shell);
 char **create_new_array(shell_t *shell, char **temp_array, char **take_com,
                         int count_space);
 char **create_tab_alias(char *str, char **alias_tab);
+
+int check_pipe_redirection(shell_t *shell, char **array,
+char *redirection, int type_error);
 
 #endif /* !mysh1_h */
