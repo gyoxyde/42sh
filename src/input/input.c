@@ -60,9 +60,9 @@ char *my_getstr(shell_t *shell)
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
     int c;
     shell->i->current_char = 0;
-    while ((c = getchar()) != '\n' && c != VEOF) {
+    shell->i->history_index = shell->i->history_length;
+    while ((c = getchar()) != '\n' && c != VEOF)
         receive_c(shell, c);
-    }
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag |= ICANON | ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
