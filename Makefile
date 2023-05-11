@@ -42,10 +42,6 @@ SRC	=	src/main.c	\
 		src/error_command.c	\
 		src/punctuation/redirection/utils_redirection.c	\
 		src/punctuation/redirection/ambiguous.c	\
-		src/input/input.c	\
-		src/input/arrow_input.c	\
-		src/input/backspace_input.c	\
-		src/input/error_input.c	\
 		src/file_info.c \
 		src/built_in_fct/alias_fct.c \
 		src/built_in_fct/check_alias.c \
@@ -54,10 +50,6 @@ SRC	=	src/main.c	\
 		src/built_in_fct/fct_main_bis.c \
 		src/built_in_fct/find_alias.c \
 		src/new_array.c \
-		src/input/history/history.c	\
-		src/input/history/load_history.c \
-		src/input/history/history_up.c \
-		src/input/history/history_down.c \
 		src/input/is_input_tty.c \
 		src/built_in_fct/unalias_fct.c \
 		src/built_in_fct/utils_env.c	\

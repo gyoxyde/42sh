@@ -16,11 +16,6 @@ void init_all(shell_t *shell)
     shell->exit_code = shell->temp_exit_code;
     shell->str = NULL;
     signal_handler();
-    shell->i->history_index = 0;
-    shell->i->history_length = 0;
-    shell->i->history = malloc(sizeof(char *) * HISTORY_SIZE);
-    load_history(shell);
-
 }
 
 void init_loop(shell_t *shell)
