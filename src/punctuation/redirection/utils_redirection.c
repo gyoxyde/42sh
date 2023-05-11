@@ -8,7 +8,7 @@
 
 int write_double_left_pipe(shell_t *shell, int *pipefd, char *file)
 {
-    file = get_heredoc(shell->redirect_lstr);
+    file = get_heredoc(shell->redirect_lstr, shell);
     if (pipe(pipefd) == -1)
         return 84;
     write(pipefd[1], file, my_strlen(file));

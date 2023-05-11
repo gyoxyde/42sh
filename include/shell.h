@@ -96,16 +96,6 @@ typedef struct shell_s {
     bool islocal;
 } shell_t;
 
-enum redirections_errors_type {
-    NO_NAME,
-    INVALID_CMD,
-    NO_DUP2,
-    AMBIGUOUS_INPUT,
-    AMBIGUOUS_OUTPUT,
-    RIGHT_REDI,
-    LEFT_REDI
-};
-
 enum cd_errors_type {
     TOO_MANY,
     NO_FILE,
@@ -114,7 +104,14 @@ enum cd_errors_type {
     NO_HOME,
     NO_HOME_VAR,
     CHDIR,
-    NO_HOME2
+    NO_HOME2,
+    NO_NAME,
+    INVALID_CMD,
+    NO_DUP2,
+    AMBIGUOUS_INPUT,
+    AMBIGUOUS_OUTPUT,
+    RIGHT_REDI,
+    LEFT_REDI
 };
 
 enum builtin_type {
@@ -306,7 +303,7 @@ int redi_error_message(int type, shell_t *shell, char *str);
 
 int close_right_fd(shell_t *shell);
 int write_double_left_pipe(shell_t *shell, int *pipefd, char *file);
-char *get_heredoc(char *end_of_file);
+char *get_heredoc(char *end_of_file, shell_t *shell);
 
 int check_for_ambiguous(shell_t *shell, char **array, bool *recurs);
 int ambiguous_error(shell_t *shell, int type, bool *recurs);

@@ -78,7 +78,7 @@ int my_left_redirection(shell_t *shell, char ***array, int *fd)
     return dup_redirection((*array), shell, (*fd), 0);
 }
 
-char *get_heredoc(char *end_of_file)
+char *get_heredoc(char *end_of_file, shell_t *shell)
 {
     size_t size = 0; ssize_t read;
     char *co = NULL; char *str = "";
@@ -92,13 +92,13 @@ char *get_heredoc(char *end_of_file)
         if (my_strcmp(co, "") != 0) {
             str = my_strcat(str, co);
             str = my_strcat(str, "\n");
-        }
-        if (isatty(0))
+        } if (isatty(0))
             my_printf("? ");
         free(co);
         co = NULL;
         read = getline(&co, &size, stdin);
-    }
+    } if (read == -1)
+        exit(shell->exit_code);
     return str;
 }
 
