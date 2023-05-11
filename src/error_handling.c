@@ -19,9 +19,16 @@ void ctrl_c_handler(int signum)
     }
 }
 
+void ctrl_z_handler(int signum)
+{
+    (void) signum;
+}
+
 void signal_handler(void)
 {
     if (signal(SIGINT, &ctrl_c_handler) == SIG_ERR)
+        exit(84);
+    if (signal(SIGTSTP, &ctrl_z_handler) == SIG_ERR)
         exit(84);
 }
 
