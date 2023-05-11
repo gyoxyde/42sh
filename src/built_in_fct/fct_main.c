@@ -24,7 +24,7 @@ int do_built_in(shell_t *shell, char **array, int number_av, int is_builtin)
     if (is_builtin == AL)               alias_fct(shell);
     if (is_builtin == AL_ONE_AV)        alias_one_av(shell);
     if (is_builtin == UA)               unalias_function(shell);
-    if (is_builtin == UA_NO_AV)     printf("unalias: Too many arguments.\n");
+    if (is_builtin == UA_NO_AV)     printf("unalias: Too few arguments.\n");
     return 0;
 }
 
