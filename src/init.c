@@ -15,6 +15,10 @@ void init_all(shell_t *shell)
     shell->temp_exit_code = 0;
     shell->exit_code = shell->temp_exit_code;
     shell->str = NULL;
+    shell->i->history_index = 0;
+    shell->i->history_length = 0;
+    shell->i->history = malloc(sizeof(char *) * 100);
+    shell->i->history[0] = NULL;
     signal_handler();
 }
 

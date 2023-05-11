@@ -54,6 +54,13 @@ SRC	=	src/main.c	\
 		src/built_in_fct/unalias_fct.c \
 		src/built_in_fct/utils_env.c	\
 		src/punctuation/redirection/error_redirection.c	\
+		src/input/history/history.c	\
+		src/input/history/history_up.c \
+		src/input/input.c	\
+		src/input/arrow_input.c	\
+		src/input/backspace_input.c	\
+		src/input/error_input.c	\
+		src/input/history/history_down.c \
 
 NAME	=	42sh
 
