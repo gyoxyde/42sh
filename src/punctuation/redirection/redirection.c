@@ -10,9 +10,10 @@ int my_right_redirection(shell_t *shell, char ***array, int *fd)
 {
     bool fix_array = false;
     shell->fd = dup(STDOUT_FILENO);
-
     if (shell->redirect_str == NULL)
         return redi_error_message(NO_NAME, shell, shell->redirect_str);
+    if (check_pipe_redirection(shell, (*array), ">", RIGHT_REDI) == 84)
+        return 84;
     (*fd) = open(shell->redirect_str, O_WRONLY | O_TRUNC | O_CREAT, 0644);
     if ((*fd) < 0)
         return redi_error_message(PERM_DENIED, shell, shell->redirect_str);
@@ -33,9 +34,10 @@ int my_doubleright_redirection(shell_t *shell, char ***array, int *fd)
 {
     bool fix_array = false;
     shell->fd = dup(STDOUT_FILENO);
-
     if (shell->redirect_str == NULL)
         return redi_error_message(NO_NAME, shell, shell->redirect_str);
+    if (check_pipe_redirection(shell, (*array), ">>", RIGHT_REDI) == 84)
+        return 84;
     (*fd) = open(shell->redirect_str, O_WRONLY | O_CREAT | O_APPEND, 0644);
     if ((*fd) < 0)
         return redi_error_message(PERM_DENIED, shell, shell->redirect_str);
@@ -56,11 +58,12 @@ int my_left_redirection(shell_t *shell, char ***array, int *fd)
 {
     bool fix_array = false;
     shell->fd2 = dup(STDIN_FILENO);
-
     if (shell->redirect_lstr == NULL)
         return redi_error_message(NO_NAME, shell, shell->redirect_lstr);
     if (access(shell->redirect_lstr, F_OK) == -1)
         return redi_error_message(NO_FILE, shell, shell->redirect_lstr);
+    if (check_pipe_redirection(shell, (*array), "<", LEFT_REDI) == 84)
+        return 84;
     (*fd) = open(shell->redirect_lstr, O_RDONLY);
     if ((*fd) < 0)
         return redi_error_message(PERM_DENIED, shell, shell->redirect_lstr);
@@ -108,6 +111,8 @@ int my_doubleleft_redirection(shell_t *shell, char ***array)
 
     if (shell->redirect_lstr == NULL)
         return redi_error_message(NO_NAME, shell, shell->redirect_lstr);
+    if (check_pipe_redirection(shell, (*array), "<<", LEFT_REDI) == 84)
+        return 84;
     for (int i = 0; (*array)[i] != NULL; i++) {
         if (my_strcmp((*array)[i], "<<") == 0)
             fix_array = true;

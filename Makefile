@@ -53,6 +53,7 @@ SRC	=	src/main.c	\
 		src/input/is_input_tty.c \
 		src/built_in_fct/unalias_fct.c \
 		src/built_in_fct/utils_env.c	\
+		src/punctuation/redirection/error_redirection.c	\
 
 NAME	=	42sh
 
