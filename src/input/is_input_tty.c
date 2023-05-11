@@ -25,10 +25,6 @@ char *my_getstrtty(shell_t *shell)
 char *intty_or_not(shell_t *shell)
 {
     char *string;
-    if (isatty(0) == 0) {
-        string = my_getstrtty(shell);
-    } else {
-        string = my_getstr(shell);
-    }
+    string = my_getstrtty(shell);
     return string;
 }
