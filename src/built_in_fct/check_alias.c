@@ -9,9 +9,9 @@
 
 int check(shell_t *shell)
 {
-    int line = strlen(shell->array[1]);
     for (int i = 0; shell->a->file[i] != NULL; i++) {
-        if (my_strncmp(shell->array[1], shell->a->file[i], line) == 0)
+        char **com = my_str_to_word_array(shell->a->file[i], ' ');
+        if (my_strcmp(shell->array[1], com[0]) == 0)
             return 24;
     }
     return 0;
