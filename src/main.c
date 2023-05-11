@@ -14,6 +14,7 @@ int main(int ac, char **const av, char** env)
         exit(84);
     shell->p = malloc(sizeof(pipes_t));
     shell->a = malloc(sizeof(alias_t));
+    shell->i = malloc(sizeof(input_t));
     shell->a->file = NULL;
     shell->a->str_alias = NULL;
     if (ac != 1)
