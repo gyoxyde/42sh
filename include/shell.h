@@ -35,6 +35,7 @@ typedef struct alias_s {
     int count;
     int save_temp;
     int save_file;
+    char *str_alias;
 } alias_t;
 
 typedef struct pipes_s {
@@ -361,5 +362,6 @@ void find_cor(char **temp_array, shell_t *shell);
 //create new_array
 char **create_new_array(shell_t *shell, char **temp_array, char **take_com,
                         int count_space);
+char **create_tab_alias(char *str, char **alias_tab);
 
 #endif /* !mysh1_h */
