@@ -7,6 +7,18 @@
 
 #include "shell.h"
 
+static char *get_clean_local_string(char *value)
+{
+    if (value[0] != '(')
+        return value;
+    char *str = strdup(value + 1);
+    for (int i = 0; str[i]; i++)
+        if (str[i] == ':')
+            str[i] = ' ';
+    str[strlen(str) - 1] = '\0';
+    return str;
+}
+
 static char *get_var_string(char *var, special_var_t special_var)
 {
     int len = strlen(var);
@@ -15,7 +27,7 @@ static char *get_var_string(char *var, special_var_t special_var)
         return "$";
     for (int i = 0; special_var->local[i]; i++)
         if (strncmp(var, special_var->local[i], len) == 0)
-            return (special_var->local[i] + len);
+            return get_clean_local_string(special_var->local[i] + len);
     for (int i = 0; special_var->env[i]; i++)
         if (strncmp(var, special_var->env[i], len) == 0)
             return (special_var->env[i] + len);

@@ -25,8 +25,6 @@ void init_all(shell_t *shell)
 
 void init_loop(shell_t *shell)
 {
-    shell->exit_code = shell->temp_exit_code;
-    shell->temp_exit_code = 0;
     shell->isLeftDupDone = false;
     shell->isRightDupDone = false;
     shell->recurs_pipe = false;
