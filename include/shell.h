@@ -136,7 +136,7 @@ enum builtin_type {
     AL_ONE_AV,
     UA,
     UA_NO_AV,
-    ECHO
+    EC
 };
 
 enum set_errors_enum {

@@ -25,7 +25,7 @@ int do_built_in(shell_t *shell, char **array, int number_av, int is_builtin)
     if (is_builtin == AL_ONE_AV)        alias_one_av(shell);
     if (is_builtin == UA)               unalias_function(shell);
     if (is_builtin == UA_NO_AV)     printf("unalias: Too few arguments.\n");
-    if (is_builtin == ECHO)              echo_function(array);
+    if (is_builtin == EC)              echo_function(array);
     return 0;
 }
 
@@ -103,7 +103,7 @@ int check_built_in_fct(char *str, char **array, int number_av)
         if (check_which_alias(number_av, str) == 12) return AL;
         if (check_which_alias(number_av, str) == 13) return AL_ONE_AV;
         if (!my_strcmp(str, "unalias")) return UA;
-        if (!my_strcmp(str, "echo")) return ECHO;
+        if (!my_strcmp(str, "echo")) return EC;
     } else {
         if (!my_strcmp(str, "env")) return ENV;
         if (!my_strcmp(str, "setenv")) return ENV;
