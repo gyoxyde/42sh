@@ -351,9 +351,6 @@ void history_up(shell_t *shell);
 void history_down(shell_t *shell);
 void history_add(shell_t *shell);
 
-//file_info.c
-int file_info(char *pathfile, shell_t *shell);
-
 //Check alias type
 int check_which_alias(int number_av, char *str);
 

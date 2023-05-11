@@ -33,7 +33,6 @@ int alias_exist(shell_t *shell, char **temp_array)
 
 int check_al_exist(shell_t *shell, char **temp_array)
 {
-    file_info(".alias", shell);
     if (shell->a->file != NULL) {
         if (alias_exist(shell, temp_array) == 24)
             return 24;
@@ -43,7 +42,6 @@ int check_al_exist(shell_t *shell, char **temp_array)
 
 char **change_array(char **temp_array, shell_t *shell)
 {
-    file_info(".alias", shell);
     shell->a->save_temp = 0;
     shell->a->save_file = 0;
     int count_space = 0;
@@ -61,7 +59,6 @@ char **change_array(char **temp_array, shell_t *shell)
 char **def_temp_array(shell_t *shell)
 {
     char **temp_array = my_str_to_word_array(shell->str, ' ');
-    file_info(".alias", shell);
     if (check_al_exist(shell, temp_array) != 24) {
         temp_array = temp_array;
     } else {

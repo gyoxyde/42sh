@@ -42,7 +42,6 @@ SRC	=	src/main.c	\
 		src/error_command.c	\
 		src/punctuation/redirection/utils_redirection.c	\
 		src/punctuation/redirection/ambiguous.c	\
-		src/file_info.c \
 		src/built_in_fct/alias_fct.c \
 		src/built_in_fct/check_alias.c \
 		src/built_in_fct/alias_one_av.c \
