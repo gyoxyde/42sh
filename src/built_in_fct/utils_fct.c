@@ -35,10 +35,12 @@ void exec_child_process(shell_t *shell, char **array, char *path)
     }
 }
 
-void exec_parent_process(shell_t *shell, int status, int temp_status)
+void exec_parent_process(shell_t *shell, char **array)
 {
+    int number_av = 0;
+
+    for (; array[number_av]; number_av++);
+    number_av--;
     pipe_parent(shell);
-    wait(&status);
-    temp_status = status;
-    check_error_segfault(temp_status, shell);
+    close_all_fd(shell, array, number_av);
 }

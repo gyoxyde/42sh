@@ -8,8 +8,6 @@
 
 int fct_curr_dir(char **array, shell_t *shell)
 {
-    int status = 0;
-    int temp_status = 0;
     pid_t pid;
 
     if (isitdir_exec_cmd(array, shell, array[0]) != 0)
@@ -19,7 +17,7 @@ int fct_curr_dir(char **array, shell_t *shell)
         exec_child_process(shell, array, array[0]);
     } else {
         if (pid > 0) {
-            exec_parent_process(shell, status, temp_status);
+            exec_parent_process(shell, array);
         } else {
         perror("fork");
         exit(84);

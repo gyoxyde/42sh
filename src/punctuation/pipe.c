@@ -51,12 +51,13 @@ void pipe_parent(shell_t *shell)
 int close_all(shell_t *shell)
 {
     int wstatus;
+
     close(shell->p->prev_fd[0]);
     close(shell->p->prev_fd[1]);
     close(shell->p->fd[0]);
     close(shell->p->fd[1]);
 
-    while ((waitpid(-1, &wstatus, 0)) > 0) {
+    while ((waitpid(-1, &wstatus, WUNTRACED)) > 0) {
         if (WIFEXITED(wstatus)) {
             shell->temp_exit_code = WEXITSTATUS(wstatus);
         }
@@ -65,6 +66,7 @@ int close_all(shell_t *shell)
     dup2(shell->p->old_stdout, STDOUT_FILENO);
     close(shell->p->old_stdin);
     close(shell->p->old_stdout);
+    check_error_segfault(wstatus, shell);
     return shell->temp_exit_code;
 }
 

@@ -17,7 +17,6 @@ int shell_start(shell_t *shell)
         get_cleaned_str(shell);
         if (my_strcmp(shell->str, "") != 0) {
             shell->number_av = count_av(shell->str);
-            file_info(".alias", shell);
             char **temp_array = def_temp_array(shell);
             shell_loop(shell, temp_array);
         }
@@ -27,11 +26,9 @@ int shell_start(shell_t *shell)
 
 void shell_loop(shell_t *shell, char **temp_array)
 {
-    temp_array = def_temp_array(shell);
     bool recurs = fill_array(shell, temp_array);
     char **array = shell->array;
     int number_av = 0;
-    file_info(".alias", shell);
     init_loop(shell);
     if (check_globbings_env(shell, array) == 84) return;
     if (check_error_recursive(shell, temp_array) == true) return;
@@ -101,5 +98,4 @@ void shell_do_fct(shell_t *shell, char **array, int number_av)
         } else
             execute_cmd(array, shell);
     }
-    close_all_fd(shell, array, number_av);
 }

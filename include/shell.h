@@ -302,7 +302,7 @@ char *get_heredoc(char *end_of_file);
 int check_for_ambiguous(shell_t *shell, char **array, bool *recurs);
 int ambiguous_error(shell_t *shell, int type, bool *recurs);
 
-void exec_parent_process(shell_t *shell, int status, int temp_status);
+void exec_parent_process(shell_t *shell, char **array);
 void exec_child_process(shell_t *shell, char **array, char *path);
 
 int check_exec_cmd(char **array, shell_t *shell, char **path);

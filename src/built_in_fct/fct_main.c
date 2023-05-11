@@ -31,8 +31,6 @@ void built_in_function(char **array, shell_t *shell, int number_av)
 int execute_cmd(char **array, shell_t *shell)
 {
     char *path = NULL;
-    int status = 0;
-    int temp_status = 0;
     pid_t pid;
 
     if (check_exec_cmd(array, shell, &path) == 84)
@@ -42,10 +40,10 @@ int execute_cmd(char **array, shell_t *shell)
         exec_child_process(shell, array, path);
     } else {
         if (pid > 0) {
-            exec_parent_process(shell, status, temp_status);
+            exec_parent_process(shell, array);
         } else {
-        perror("fork");
-        exit(84);
+            perror("fork");
+            exit(84);
         }
     }
     return 0;
