@@ -24,17 +24,10 @@ The SHELL supports various commands and operations, including:
 * Input here-document (<<)
 * Output append redirection (>>)
 * Pipes (|)
-* Inhibitors ()
 * Globbings (*, ?, [, ])
-* Job control (&, fg)
-* Command substitution (`)
-* Parentheses (( and ))
 * Variables (local and env)
-* Special variables (term, precmd, cwdcmd, cwd, ignoreof)
-* History (!)
 * Aliases
-* Line edition (multiline, dynamic rebinding, auto-completion dynamic)
-* Scripting
+* Line edition (multiline, erase, history)
 ## Authors
 
 - [@Léo DUMONT](https://github.com/leodumont444)
